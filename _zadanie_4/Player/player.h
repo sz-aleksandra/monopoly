@@ -2,6 +2,7 @@
 // Author: Jakub Bąba
 
 #pragma once
+#include <iostream>
 #include <set>
 
 class Player {
@@ -10,26 +11,35 @@ private:
     int money;
     int position;   // on board
     std::set<int> properties;
+    bool in_jail;
     bool alive;
 
 public:
     Player(std::string name_input);
 
+    // setters and typical changing properties
     void change_name(std::string name_input);
     void add_money(int amount);
     void take_money(int amount);
     void move_player(int amount);
-    void set_location(int new_location);
+    void set_position(int new_location);
     void add_property(int index);
     void remove_property(int index);
 
+    // getters
     std::string get_name();
     int get_money();
-    int get_location();
+    int get_position();
     bool has_property(int index);
+    bool is_in_jail();
     bool is_alive();
 
     // interactions
     void pay_to_other(Player receiver, int amount);
-
+    void buy_property(int index, int price);
+    // interacting with other classes, not implementing for now
+    void take_mortgage(int index, int price);
+    void pay_off_mortgage(int index, int price);
+    void buy_house(int index, int price);
+    void buy_hotel(int index, int price);
 };
