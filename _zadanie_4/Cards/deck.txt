@@ -1,0 +1,4 @@
+7PayCard,Your cousin forgot their wallet! You happily pay for dinner. PAY 11$.;
+12GetMoneyCard,You have won second prize in a beauty contest. Collect 11$;
+16GetOutOfJailCard,Get Out of Jail Free;
+8MoveCard,Blaring music late at night? Your neighbors do not approve. GO TO JAIL.;
