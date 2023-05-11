@@ -10,11 +10,13 @@ private:
     int money;
     int position;   // on board
     std::set<int> properties;
+    bool in_jail;
     bool alive;
 
 public:
     Player(std::string name_input);
 
+    // setters and typical changing properties
     void change_name(std::string name_input);
     void add_money(int amount);
     void take_money(int amount);
@@ -23,13 +25,20 @@ public:
     void add_property(int index);
     void remove_property(int index);
 
+    // getters
     std::string get_name();
     int get_money();
     int get_location();
     bool has_property(int index);
+    bool is_in_jail();
     bool is_alive();
 
     // interactions
     void pay_to_other(Player receiver, int amount);
-
+    void buy_property(int index, int price);
+    // interacting with other classes, not implementing for now
+    void take_mortgage(int index, int price);
+    void pay_off_mortgage(int index, int price);
+    void buy_house(int index, int price);
+    void buy_hotel(int index, int price);
 };

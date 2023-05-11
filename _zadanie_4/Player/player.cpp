@@ -10,6 +10,7 @@ Player::Player(std::string name_input) {
     alive = True;
 }
 
+/* ---------- CHANGERS ---------- */
 void Player::change_name(std::string name_input) {
     name = name_input
 }
@@ -40,7 +41,7 @@ void Player::remove_property(int index) {
 }
 
 
-
+/* ---------- GETTERS ---------- */
 std::string Player::get_name() {
     return name;
 }
@@ -57,13 +58,22 @@ bool Player::has_property(int index) {
     return properties.find(index) != properties.end();
 }
 
+bool Player::is_in_jail() {
+    return in_jail;
+}
+
 bool Player::is_alive() {
     return alive;
 }
 
 
-
+/* ---------- INTERACTIONS ---------- */
 void Player::pay_to_other(Player receiver, int amount) {
     take_money(amount);
     receiver.add_money(amount);
+}
+
+void Player::buy_property(int index, int price) {
+    take_money(price);
+    add_property(index);
 }
