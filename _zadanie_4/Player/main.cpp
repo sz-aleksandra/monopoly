@@ -4,12 +4,6 @@
 #include <iostream>
 #include "player.h"
 
-#ifdef NDEBUG
-    #define DEBUG 0
-#else
-    #define DEBUG 1
-#endif
-
 int main() {
     if (DEBUG)
         std::cout << "DEBUG MODE\n\n";
