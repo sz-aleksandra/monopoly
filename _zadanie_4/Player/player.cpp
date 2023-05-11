@@ -7,12 +7,16 @@ Player::Player(std::string name_input) {
     name = name_input;
     money = 1500;
     position = 0;
+    in_jail = false;
     alive = true;
 }
 
 /* ---------- CHANGERS ---------- */
 void Player::change_name(std::string name_input) {
-    name = name_input;
+    if (!name_input.empty())
+        name = name_input;
+    else if (DEBUG)
+        std::cout << "Name cannot be empty";
 }
 
 void Player::add_money(int amount) {
@@ -20,7 +24,13 @@ void Player::add_money(int amount) {
 }
 
 void Player::take_money(int amount) {
-    money -= amount;
+    if (amount <= money)
+        money -= amount;
+    else {
+        if (!NDEBUG)
+            std::cout << "Tried to remove more money than player has";
+        // interaction to start selling Player stuff to be implemented
+    }
 }
 
 void Player::move_player(int amount) {
@@ -29,14 +39,21 @@ void Player::move_player(int amount) {
 }
 
 void Player::set_position(int new_location) {
-    position = new_location;
+    if (new_location >= 40 || new_location < 0)
+        position = new_location;
+    else if (!NDEBUG)
+        std::cout << "Tried to move outside board";
 }
 
 void Player::add_property(int index) {
+    if (!NDEBUG && has_property(index))
+        std::cout << "Player already has this property";
     properties.insert(index);
 }
 
 void Player::remove_property(int index) {
+    if (!NDEBUG && !has_property(index))
+        std::cout << "Player didn't have this property";
     properties.erase(index);
 }
 
