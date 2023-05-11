@@ -6,13 +6,13 @@
 Player::Player(std::string name_input) {
     name = name_input;
     money = 1500;
-    location = 0;
-    alive = True;
+    position = 0;
+    alive = true;
 }
 
 /* ---------- CHANGERS ---------- */
 void Player::change_name(std::string name_input) {
-    name = name_input
+    name = name_input;
 }
 
 void Player::add_money(int amount) {
@@ -25,11 +25,11 @@ void Player::take_money(int amount) {
 
 void Player::move_player(int amount) {
     // assuming that size is 40
-    location = (location + amount) % 40;
+    position = (position + amount) % 40;
 }
 
-void Player::set_location(int new_location) {
-    location = new_location;
+void Player::set_position(int new_location) {
+    position = new_location;
 }
 
 void Player::add_property(int index) {
@@ -50,8 +50,8 @@ int Player::get_money() {
     return money;
 }
 
-int Player::get_location() {
-    return location;
+int Player::get_position() {
+    return position;
 }
 
 bool Player::has_property(int index) {

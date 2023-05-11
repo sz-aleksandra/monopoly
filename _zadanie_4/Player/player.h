@@ -2,6 +2,7 @@
 // Author: Jakub Bąba
 
 #pragma once
+#include <iostream>
 #include <set>
 
 class Player {
@@ -21,14 +22,14 @@ public:
     void add_money(int amount);
     void take_money(int amount);
     void move_player(int amount);
-    void set_location(int new_location);
+    void set_position(int new_location);
     void add_property(int index);
     void remove_property(int index);
 
     // getters
     std::string get_name();
     int get_money();
-    int get_location();
+    int get_position();
     bool has_property(int index);
     bool is_in_jail();
     bool is_alive();
