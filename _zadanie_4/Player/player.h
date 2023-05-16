@@ -42,4 +42,7 @@ public:
     void pay_off_mortgage(int index, int price);
     void buy_house(int index, int price);
     void buy_hotel(int index, int price);
+
+    // miscellaneous
+    void player_description();
 };

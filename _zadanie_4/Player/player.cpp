@@ -94,3 +94,14 @@ void Player::buy_property(int index, int price) {
     take_money(price);
     add_property(index);
 }
+
+void Player::player_description() {
+    std::cout << "Player name: " << name;
+    std::cout << "\nMoney amount: " << money;
+    std::cout << "\nPosition on board (index): " << position;
+    std::cout << "\nIs alive: " << ( (alive) ? "Yes" : "No" );
+    std::cout << "\nIs in jail: " << ( (in_jail) ? "Yes" : "No" );
+    std::cout << "\nOwned properties (indexes): ";
+    for (auto i : properties)
+        std::cout << i << " ";
+}
