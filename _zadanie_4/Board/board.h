@@ -9,38 +9,37 @@ using namespace std;
 class Field
 {
 protected:
-	string color;
 	string name;
-	float price_to_buy;
-	int owner;
 
 public:
+	Field(string n);
+	virtual void printFieldInfo() = 0;
 
-	Field(int own = 0, string col = "", string nm ="", float price = 0);
-	
-	void printFieldInfo();
-
-	/* ---------- GETTERS ---------- */
 	string getName();
-	float getPrice();
-	int getOwner();
 };
 
 class Property : public Field
 {
 private:
-	string name;
-	float price_to_buy;
+
+	float purchase_price;
+	string color;
+	int owner;
+	int number_of_houses;
+	int number_of_hotels;
+
 
 public:
-	Property(int own = 0, string col = "", string nm = "", float price = 0);
+	Property(string name = "", float price = 0, string col = "", int own = 0, int num_houses = 0, int num_hotels = 0);
+
+	void printFieldInfo() override;
 };
 
 
 class Board
 {
-private:
-	vector <Field> board_fields;
+protected:
+	vector <Field*> board_fields;
 	vector<vector<int>> fields_coordinates;
 
 public:

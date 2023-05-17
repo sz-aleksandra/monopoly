@@ -1,14 +1,9 @@
 #include "board.h"
 
 
-Field::Field(int own, string col, string nm, float price)
-	:name(nm), price_to_buy(price), owner(own), color(col)
+Field::Field(string n)
+	: name(n)
 {}
-
-void Field::printFieldInfo()
-{
-	cout << name << " " << price_to_buy << " " << owner << endl;
-}
 
 /* ---------- GETTERS ---------- */
 string Field::getName()
@@ -16,19 +11,6 @@ string Field::getName()
 	return name;
 }
 
-float Field::getPrice()
-{
-	return price_to_buy;
-}
-
-int Field::getOwner()
-{
-	return owner;
-}
-
-Property::Property(int own, string col, string nm, float price)
-	:Field(own, col), name(nm), price_to_buy(price)
-{}
 
 Board::Board()
 	:board_fields({}), fields_coordinates({}) {}
@@ -57,16 +39,16 @@ Board::Board(string filename)
 			break;
 		}
 
-		Field temp_field(owner, color, name, price);
+		Field* temp_field = new Property(name, price, color, owner);
 		board_fields.push_back(temp_field);
 	}
 }
 
 void Board::printFields()
 {
-	for (Field field : board_fields)
+	for (Field *field : board_fields)
 	{
-		field.printFieldInfo();
+		field->printFieldInfo();
 	}
 }
 
@@ -122,5 +104,19 @@ void BoardDisplay::printBoard()
 			
 		}
 		cout << endl;
+	}
+}
+
+Property::Property(string name, float price, string col, int own, int num_houses, int num_hotels)
+	:Field(name), purchase_price(price), color(col), owner(own), number_of_houses(num_houses), number_of_hotels(num_hotels)
+{}
+
+void Property::printFieldInfo()
+{
+	cout << "\n name: " << name << "\n purchuse price: " << purchase_price << "\n color: " << color << "\n owner: " << owner;
+
+	if (owner != 0)
+	{
+		cout << "\n number of houser: " << number_of_houses << "\n number of hotels: " << number_of_hotels << endl;
 	}
 }

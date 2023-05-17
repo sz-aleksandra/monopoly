@@ -10,6 +10,7 @@ int main()
 
     BoardDisplay board(plansza1);
     board.printBoard();
+    plansza1.printFields();
 
     return 0;
 }
