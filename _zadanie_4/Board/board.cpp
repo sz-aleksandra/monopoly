@@ -60,7 +60,7 @@ void Board::printFields()
 	}
 }
 
-BoardDisplay::BoardDisplay(Board actual_board_state)
+BoardDisplay::BoardDisplay(Board& actual_board_state)
 {
 	for (int i = 0; i < 22; i++)
 	{

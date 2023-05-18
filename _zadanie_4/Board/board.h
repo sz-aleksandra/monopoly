@@ -78,7 +78,7 @@ private:
 
 public:
 
-	BoardDisplay(Board actual_board_state);
+	BoardDisplay(Board& actual_board_state);
 
 	void printBoard();
 };
