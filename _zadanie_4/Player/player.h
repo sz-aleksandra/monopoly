@@ -6,7 +6,7 @@
 #include <set>
 
 class Player {
-private:
+protected:
     std::string name;
     int money;
     int position;   // on board
@@ -45,4 +45,21 @@ public:
 
     // miscellaneous
     void player_description();
+};
+
+class Human : public Player {
+private:
+    bool pass_login;
+    std::string password;
+public:
+    Human(std::string name_input, std::string set_pass);
+    void set_password(std::string new_p);
+    void change_password(std::string old_p, std::string new_p);
+    void remove_password(std::string pass);
+};
+
+class Bot : public Player {
+public:
+    Bot(std::string name_input);
+    void change_name(std::string name_input);
 };
