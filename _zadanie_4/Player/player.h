@@ -52,7 +52,7 @@ private:
     bool pass_login;
     std::string password;
 public:
-    Human(std::string name_input, std::string set_pass);
+    Human(std::string name_input, std::string set_pass="");
     void set_password(std::string new_p);
     void change_password(std::string old_p, std::string new_p);
     void remove_password(std::string pass);

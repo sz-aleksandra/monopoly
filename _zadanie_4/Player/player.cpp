@@ -4,7 +4,7 @@
 #include "player.h"
 
 Player::Player(std::string name_input) {
-    name = name_input;
+    name = std::move(name_input);
     money = 1500;
     position = 0;
     in_jail = false;
@@ -14,7 +14,7 @@ Player::Player(std::string name_input) {
 /* ---------- CHANGERS ---------- */
 void Player::change_name(std::string name_input) {
     if (!name_input.empty())
-        name = name_input;
+        name = std::move(name_input);
     else if (DEBUG)
         std::cout << "Name cannot be empty\n";
 }
@@ -104,4 +104,5 @@ void Player::player_description() {
     std::cout << "\nOwned properties (indexes): ";
     for (auto i : properties)
         std::cout << i << " ";
+    std::cout << "\n\n";
 }

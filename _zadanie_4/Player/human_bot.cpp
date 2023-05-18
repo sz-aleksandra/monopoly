@@ -3,7 +3,7 @@
 
 #include "player.h"
 
-Human::Human(std::string name_input, std::string set_pass = "")
+Human::Human(std::string name_input, std::string set_pass)
     : Player(std::move(name_input)),
       password(set_pass), pass_login(!(set_pass.empty())) {}
 
