@@ -5,7 +5,6 @@ Field::Field(string n)
 	: name(n)
 {}
 
-/* ---------- GETTERS ---------- */
 string Field::getName()
 {
 	return name;
@@ -42,6 +41,15 @@ Board::Board(string filename)
 		Field* temp_field = new Property(name, price, color, owner);
 		board_fields.push_back(temp_field);
 	}
+}
+
+Board::~Board()
+{
+	for (Field* field : board_fields)
+	{
+		delete field;
+	}
+	board_fields.clear();
 }
 
 void Board::printFields()
@@ -119,4 +127,30 @@ void Property::printFieldInfo()
 	{
 		cout << "\n number of houser: " << number_of_houses << "\n number of hotels: " << number_of_hotels << endl;
 	}
+}
+
+void Property::addHouse()
+{
+	if (number_of_houses < 4)
+	{
+		number_of_houses++;
+	}
+}
+
+Utility::Utility(string name, int own, float price)
+	:Field(name), owner(own), purchase_price(price)
+{}
+
+void Utility::printFieldInfo()
+{
+	cout << " name: " << name << "\n purchase price: " << purchase_price << "\n owner: " << owner << endl;
+}
+
+PenaltyField::PenaltyField(string name, float tax)
+	: Field(name), tax_to_pay(tax)
+{}
+
+void PenaltyField::printFieldInfo()
+{
+	cout << " name: " << name << "\n tax to be paid to bank: " << tax_to_pay << endl;
 }
