@@ -35,11 +35,13 @@ void Player::take_money(int amount) {
 
 void Player::move_player(int amount) {
     // assuming that size is 40
+    while (position + amount < 0)
+        position += 40;
     position = (position + amount) % 40;
 }
 
 void Player::set_position(int new_location) {
-    if (new_location >= 40 || new_location < 0)
+    if (new_location < 40 && new_location >= 0)
         position = new_location;
     else if (DEBUG)
         std::cout << "Tried to move outside board\n";

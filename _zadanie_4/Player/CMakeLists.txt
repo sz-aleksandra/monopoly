@@ -7,3 +7,4 @@ set(CMAKE_CXX_STANDARD 17)
 add_compile_definitions(DEBUG)
 
 add_executable(player main.cpp player.cpp player.h human_bot.cpp)
+add_subdirectory(Google_tests)

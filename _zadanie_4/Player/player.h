@@ -18,7 +18,7 @@ public:
     Player(std::string name_input);
 
     // setters and typical changing properties
-    void change_name(std::string name_input);
+    virtual void change_name(std::string name_input);
     void add_money(int amount);
     void take_money(int amount);
     void move_player(int amount);
