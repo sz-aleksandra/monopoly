@@ -59,6 +59,30 @@ void Player::remove_property(int index) {
     properties.erase(index);
 }
 
+void Player::put_in_jail() {
+    if (DEBUG && in_jail)
+        std::cout << "Player is already in jail\n";
+    in_jail = true;
+}
+
+void Player::put_out_of_jail() {
+    if (DEBUG && !in_jail)
+        std::cout << "Player is already out of jail\n";
+    in_jail = false;
+}
+
+void Player::kill_player() {
+    if (DEBUG && !alive)
+        std::cout << "Player is already not alive\n";
+    alive = false;
+}
+
+void Player::set_player_alive() {
+    if (DEBUG && alive)
+        std::cout << "Player is already alive\n";
+    alive = true;
+}
+
 
 /* ---------- GETTERS ---------- */
 std::string Player::get_name() {

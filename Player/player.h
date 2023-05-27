@@ -25,6 +25,10 @@ public:
     void set_position(int new_location);
     void add_property(int index);
     void remove_property(int index);
+    void put_in_jail();
+    void put_out_of_jail();
+    void kill_player();
+    void set_player_alive();
 
     // getters
     std::string get_name();
