@@ -11,7 +11,7 @@ Player::Player(std::string name_input) {
     alive = true;
 }
 
-/* ---------- CHANGERS ---------- */
+/* ---------- SETTERS ---------- */
 void Player::change_name(std::string name_input) {
     if (!name_input.empty())
         name = std::move(name_input);
@@ -83,18 +83,6 @@ bool Player::is_in_jail() {
 
 bool Player::is_alive() {
     return alive;
-}
-
-
-/* ---------- INTERACTIONS ---------- */
-void Player::pay_to_other(Player receiver, int amount) {
-    take_money(amount);
-    receiver.add_money(amount);
-}
-
-void Player::buy_property(int index, int price) {
-    take_money(price);
-    add_property(index);
 }
 
 void Player::player_description() {

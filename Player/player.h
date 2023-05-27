@@ -34,15 +34,6 @@ public:
     bool is_in_jail();
     bool is_alive();
 
-    // interactions
-    void pay_to_other(Player receiver, int amount);
-    void buy_property(int index, int price);
-    // interacting with other classes, not implementing for now
-    void take_mortgage(int index, int price);
-    void pay_off_mortgage(int index, int price);
-    void buy_house(int index, int price);
-    void buy_hotel(int index, int price);
-
     // miscellaneous
     void player_description();
 };
