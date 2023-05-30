@@ -4,9 +4,10 @@
 #pragma once
 #include <iostream>
 #include <set>
+#include "custom_exceptions.h"
 
 class Player {
-protected:
+private:
     std::string name;
     int money;
     int position;   // on board
