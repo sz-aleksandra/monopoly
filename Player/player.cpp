@@ -4,10 +4,18 @@
 #include "player.h"
 
 Player::Player(std::string name_input, std::string type) {
-    if (type=="human")
-        player_type = "human";
-    else
-        player_type = "bot";
+    if (type=="human" || type=="bot")
+        player_type = std::move(type);
+    else {
+        if (DEBUG)
+            std::cout << "Tried to create player who isn't human nor bot\n";
+        throw invalid_player_type_exception((char*)"Player has to be human or bot");
+    }
+    if (name_input.empty()) {
+        if (DEBUG)
+            std::cout << "Tried to initialize player without name\n";
+        throw invalid_player_type_exception((char*)"Player cannot be initialized with empty name");
+    }
     name = std::move(name_input);
     if (player_type == "bot")
         name += " (Bot)";
@@ -19,13 +27,14 @@ Player::Player(std::string name_input, std::string type) {
 
 /* ---------- SETTERS ---------- */
 void Player::change_name(std::string name_input) {
-    if (!name_input.empty()) {
-        name = std::move(name_input);
-        if (player_type == "bot")
-            name += " (Bot)";
+    if (name_input.empty()) {
+        if (DEBUG)
+            std::cout << "Tried to change name to an empty string\n";
+        throw empty_name_exception((char *) "Player cannot have its name changed to an empty string");
     }
-    else if (DEBUG)
-        std::cout << "Name cannot be empty\n";
+    name = std::move(name_input);
+    if (player_type == "bot")
+        name += " (Bot)";
 }
 
 void Player::add_money(int amount) {
@@ -33,13 +42,12 @@ void Player::add_money(int amount) {
 }
 
 void Player::take_money(int amount) {
-    if (amount <= money)
-        money -= amount;
-    else {
+    if (amount > money) {
         if (DEBUG)
             std::cout << "Tried to remove more money than player has\n";
-        // interaction to start selling Player stuff to be implemented
+        throw not_enough_money_exception((char *) "Tried to take more money than player has");
     }
+    money -= amount;
 }
 
 void Player::move_player(int amount) {
@@ -50,10 +58,12 @@ void Player::move_player(int amount) {
 }
 
 void Player::set_position(int new_location) {
-    if (new_location < 40 && new_location >= 0)
-        position = new_location;
-    else if (DEBUG)
-        std::cout << "Tried to move outside board\n";
+    if (new_location < 0 || new_location >= 40) {
+        if (DEBUG)
+            std::cout << "Tried to move outside board\n";
+        throw position_outside_board_exception((char*)"Cannot change player position to one outside board");
+    }
+    position = new_location;
 }
 
 void Player::add_property(int index) {
