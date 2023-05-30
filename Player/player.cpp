@@ -3,8 +3,14 @@
 
 #include "player.h"
 
-Player::Player(std::string name_input) {
+Player::Player(std::string name_input, std::string type) {
+    if (type=="human")
+        player_type = "human";
+    else
+        player_type = "bot";
     name = std::move(name_input);
+    if (player_type == "bot")
+        name += " (Bot)";
     money = 1500;
     position = 0;
     in_jail = false;
@@ -13,8 +19,11 @@ Player::Player(std::string name_input) {
 
 /* ---------- SETTERS ---------- */
 void Player::change_name(std::string name_input) {
-    if (!name_input.empty())
+    if (!name_input.empty()) {
         name = std::move(name_input);
+        if (player_type == "bot")
+            name += " (Bot)";
+    }
     else if (DEBUG)
         std::cout << "Name cannot be empty\n";
 }

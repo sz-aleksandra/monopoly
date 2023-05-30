@@ -13,12 +13,13 @@ protected:
     std::set<int> properties;
     bool in_jail;
     bool alive;
+    std::string player_type; // human/bot
 
 public:
-    Player(std::string name_input);
+    Player(std::string name_input, std::string type="human");
 
     // setters and typical changing properties
-    virtual void change_name(std::string name_input);
+    void change_name(std::string name_input);
     void add_money(int amount);
     void take_money(int amount);
     void move_player(int amount);
@@ -40,21 +41,4 @@ public:
 
     // miscellaneous
     void player_description();
-};
-
-class Human : public Player {
-private:
-    bool pass_login;
-    std::string password;
-public:
-    Human(std::string name_input, std::string set_pass="");
-    void set_password(std::string new_p);
-    void change_password(std::string old_p, std::string new_p);
-    void remove_password(std::string pass);
-};
-
-class Bot : public Player {
-public:
-    Bot(std::string name_input);
-    void change_name(std::string name_input);
 };
