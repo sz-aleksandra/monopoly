@@ -57,11 +57,16 @@ public:
 	void printFieldInfo() override;
 };
 
+class BoardDisplay;
+
 class Board
 {
 protected:
 	vector <Field*> board_fields;
 	vector<vector<int>> fields_coordinates;
+	vector <vector<int >> players_locations;
+
+	void setFieldCoordinates();
 
 public:
 	Board();
@@ -69,16 +74,22 @@ public:
 	~Board();
 
 	void printFields();
+	void move_player(int player, int new_field, BoardDisplay &board);
+
+	vector<vector<int>> getPlayersLocations();
+	
 };
 	
 class BoardDisplay
 {
 private:
 	string board[22][20];
-
+	
 public:
 
 	BoardDisplay(Board& actual_board_state);
 
-	void printBoard();
+	void printBoard(Board& board_state);
+
+	void setNewCords(int x, int y, string value);
 };
