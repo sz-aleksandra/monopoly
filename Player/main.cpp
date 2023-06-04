@@ -1,6 +1,9 @@
 // Project: Monopoly
 // Author: Jakub Bąba
 
+#ifndef DEBUG
+#   define DEBUG false
+#endif
 #include <iostream>
 #include "player.h"
 

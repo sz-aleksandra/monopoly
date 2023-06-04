@@ -1,6 +1,9 @@
 // Project: Monopoly
 // Author: Jakub Bąba
 
+#ifndef DEBUG
+#   define DEBUG false
+#endif
 #include "player.h"
 
 Player::Player(std::string name_input, std::string type) {
