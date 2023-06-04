@@ -94,11 +94,26 @@ TEST(player_test, properties) {
 TEST(player_test, jail) {
     Player a("aaa");
     ASSERT_EQ(a.is_in_jail(), false);
+
+    a.put_in_jail();
+    a.put_in_jail();
+    a.put_in_jail();
+    ASSERT_EQ(a.is_in_jail(), true);
+
+    a.put_out_of_jail();
+    ASSERT_EQ(a.is_in_jail(), false);
 }
 
 
 TEST(player_test, alive) {
     Player a("aaa");
+    ASSERT_EQ(a.is_alive(), true);
+
+    a.kill_player();
+    a.kill_player();
+    ASSERT_EQ(a.is_alive(), false);
+
+    a.set_player_alive();
     ASSERT_EQ(a.is_alive(), true);
 }
 
