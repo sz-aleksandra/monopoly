@@ -8,6 +8,8 @@
 
 class Player {
 private:
+    inline static int object_count;
+    int id;
     std::string name;
     int money;
     int position;   // on board
@@ -33,6 +35,7 @@ public:
     void set_player_alive();
 
     // getters
+    int get_id();
     std::string get_name();
     int get_money();
     int get_position();
