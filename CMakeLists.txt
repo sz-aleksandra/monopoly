@@ -8,4 +8,5 @@ add_compile_definitions(DEBUG=true)
 # add_compile_definitions(DEBUG=false)
 
 add_subdirectory(Player)
+add_subdirectory(Dices)
 add_subdirectory(tests/Google)
