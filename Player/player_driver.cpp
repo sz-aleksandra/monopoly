@@ -14,14 +14,14 @@ void PlayerDriver::make_turn() {
     std::cout << player.get_name() << " move!\n";
     std::cout << "------------------------------\n\n\n";
 
-    std::cout << "Do you want to buy houses? (Yes/No): ";
-    // @TODO check if there are any houses you can build
-    std::string decision;
-    std::cin >> decision;
-    transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
-    if (decision == "yes" || decision == "y") {
-        buy_house_menu();
-    }
+    // @TODO implement houses mechanics
+//    std::cout << "Do you want to buy houses? (Yes/No): ";
+//    std::string decision;
+//    std::cin >> decision;
+//    transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
+//    if (decision == "yes" || decision == "y") {
+//        buy_house_menu();
+//    }
 
     move();
 }
@@ -30,9 +30,14 @@ void PlayerDriver::move() {
     std::cout << "Rolling dices...\n";
     int roll_total = hand.roll_all(true);
     // @TODO implement doubles
+    if (hand.same_result_counter >= 3) {
 
-    player.move_player(roll_total);
+    }
 
+    change_position_actions("move", roll_total);
+}
+
+void PlayerDriver::new_position_actions() {
     std::string type;
     // @TODO get field type from board (?) class and update types names
     type = "property";
@@ -42,14 +47,12 @@ void PlayerDriver::move() {
         utility_actions();
     else if (type == "station")
         station_actions();
-    else if (type == "start")
-        start_actions();
     else if (type == "tax")
         tax_actions();
     else if (type == "chance" || type == "community")
         card_actions(type);
     else if (type == "wait")
-        wait_actions();
+        ;
     else if (type == "go_jail")
         go_jail_actions();
     else {
@@ -63,21 +66,46 @@ void PlayerDriver::move() {
     }
 }
 
-// @TODO implement buying houses mechanics
-void PlayerDriver::buy_house_menu() {}
-
 void PlayerDriver::property_actions() {}
 
 void PlayerDriver::utility_actions() {}
 
 void PlayerDriver::station_actions() {}
 
-void PlayerDriver::start_actions() {}
-
 void PlayerDriver::tax_actions() {}
 
 void PlayerDriver::card_actions(std::string type) {}
 
-void PlayerDriver::wait_actions() {}
-
 void PlayerDriver::go_jail_actions() {}
+
+void PlayerDriver::change_position_actions(std::string type, int value, bool skip_start) {
+    if (type == "move") {
+        if (!skip_start && player.get_position() + value >= 40)
+            give_money_actions(200);
+        player.move_player(value);
+    }
+    else if (type == "set") {
+        if (!skip_start && player.get_position() < value)
+            give_money_actions(200);
+        player.set_position(value);
+    }
+    else {
+        std::cout << "This type of change position action does not exist";
+        std::cout << "\nReceived type: " << type << "\n\n";
+        throw invalid_action_type_exception("Non existent type of position change action");
+    }
+    new_position_actions();
+}
+
+void PlayerDriver::give_money_actions(int amount) {
+    player.add_money(amount);
+}
+
+void PlayerDriver::take_money_actions(int amount) {
+    try {
+        player.take_money(amount);
+    }
+    catch (not_enough_money_exception& e) {
+        // @TODO bankruptcy mechanics
+    }
+}

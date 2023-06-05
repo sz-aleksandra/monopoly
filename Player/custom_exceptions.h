@@ -53,3 +53,13 @@ public:
         return message.c_str();
     }
 };
+
+class invalid_action_type_exception : public std::exception {
+private:
+    std::string message;
+public:
+    invalid_action_type_exception(std::string msg) : message(std::move(msg)) {}
+    const char* what() noexcept {
+        return message.c_str();
+    }
+};
