@@ -137,3 +137,10 @@ void Deck<CardType>::save_deck(std::string file){
         std::cout << "Unable to open file";
     }
 }
+
+template <class CardType>
+void Deck<CardType>::print_deck(std::string player_name, int number){
+    for (const auto& card : deck) {
+        card->effect(player_name, number);
+    }
+}
