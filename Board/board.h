@@ -33,7 +33,15 @@ public:
 	Property(string name = "", float price = 0.f, string col = "", int own = 0, int num_houses = 0, int num_hotels = 0);
 	void printFieldInfo() override;
 
+	string getName();
+	int getOwner();
+	float getPurchasePrice();
+	string getColor();
+
+	void setOwner(int own);
 	void addHouse();
+	void addHotel();
+
 };
 
 class Utility : public Field
@@ -45,6 +53,12 @@ private:
 public:
 	Utility(string name = "", int owner = 0, float price = 0.f);
 	void printFieldInfo() override;
+
+	float getPurchasePrice();
+	int getOwner();
+	string getName();
+
+	void setOwner(int own);
 };
 
 class PenaltyField : public Field
@@ -55,6 +69,9 @@ private:
 public:
 	PenaltyField(string name = "", float tax = 0.f);
 	void printFieldInfo() override;
+
+	string getName();
+	float getTaxToPay();
 };
 
 class BoardDisplay;
@@ -74,7 +91,7 @@ public:
 	~Board();
 
 	void printFields();
-	void move_player(int player, int new_field, BoardDisplay &board);
+	void movePlayer(int player, int new_field, BoardDisplay &board);
 
 	vector<vector<int>> getPlayersLocations();
 	

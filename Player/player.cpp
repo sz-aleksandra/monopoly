@@ -17,8 +17,9 @@ Player::Player(std::string name_input, std::string type) {
     if (name_input.empty()) {
         if (DEBUG)
             std::cout << "Tried to initialize player without name\n";
-        throw invalid_player_type_exception((char*)"Player cannot be initialized with empty name");
+        throw empty_name_exception((char*)"Player cannot be initialized with empty name");
     }
+    id = object_count++;
     name = std::move(name_input);
     if (player_type == "bot")
         name += " (Bot)";
@@ -107,6 +108,10 @@ void Player::set_player_alive() {
 
 
 /* ---------- GETTERS ---------- */
+int Player::get_id() {
+    return id;
+}
+
 std::string Player::get_name() {
     return name;
 }
@@ -132,7 +137,8 @@ bool Player::is_alive() {
 }
 
 void Player::player_description() {
-    std::cout << "Player name: " << name;
+    std::cout << "Player id: " << id;
+    std::cout << "\nPlayer name: " << name;
     std::cout << "\nMoney amount: " << money;
     std::cout << "\nPosition on board (index): " << position;
     std::cout << "\nIs alive: " << ( (alive) ? "Yes" : "No" );
