@@ -46,6 +46,7 @@ void GetOutOfJailCard::effect(std::string player_name, std::string optional_rece
 
 MoveCard::MoveCard(std::string text, int number) : Card(text, number){
     message = text;
+    amount = number;
 }
 
 void MoveCard::effect(std::string player_name, std::string optional_receiver){
@@ -90,12 +91,13 @@ std::vector<std::shared_ptr<CardType>> Deck<CardType>::load_cards_from_file(std:
     std::vector<std::shared_ptr<CardType>> card_collection;
     std::string line;
     std::ifstream input_file;
+    int amount_as_int;
     input_file.open(file);
     if (input_file){
         while(std::getline(input_file, line)){
             std::string type;
             std::string text;
-            std::string amount = 0;
+            std::string amount;
             bool readintotext = 0;
             bool readamount = 0;
             char c = line[0];
@@ -105,6 +107,7 @@ std::vector<std::shared_ptr<CardType>> Deck<CardType>::load_cards_from_file(std:
                     continue;
                 } else if (c == ';'){
                     readamount = 1;
+                    continue;
                 }
                 if (readamount){
                     amount += c;
@@ -114,8 +117,7 @@ std::vector<std::shared_ptr<CardType>> Deck<CardType>::load_cards_from_file(std:
                     type += c;
                 }
             }
-            std::cout << amount;
-            /*if(type == "7PayCard"){
+            if(type == "7PayCard"){
                 //std::shared_ptr<CardType> card = std::make_shared<PayCard>(text);
                 card_collection.push_back(std::make_shared<PayCard>(text, std::stoi(amount)));
             }
@@ -126,8 +128,8 @@ std::vector<std::shared_ptr<CardType>> Deck<CardType>::load_cards_from_file(std:
                 card_collection.push_back(std::make_shared<GetOutOfJailCard>(text));
             }
             if (type == "8MoveCard") {
-                card_collection.push_back(std::make_shared<MoveCard>(text));
-            }*/
+                card_collection.push_back(std::make_shared<MoveCard>(text, std::stoi(amount)));
+            }
         }
         input_file.close();
     } else {
