@@ -67,7 +67,7 @@ void PlayerDriver::move() {
             std::cout << "\nNo. of property: " << gamer.get_position();
             std::cout << "\nReceived type: " << type << "\n\n";
         }
-        throw invalid_field_type_exception((char*)"Non-existent type of field");
+        throw invalid_field_type_exception("Non-existent type of field");
     }
 }
 

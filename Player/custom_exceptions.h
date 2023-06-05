@@ -6,50 +6,50 @@
 
 class not_enough_money_exception : public std::exception {
 private:
-    char *message;
+    std::string message;
 public:
-    not_enough_money_exception(char *msg) : message(msg) {}
-    char *what() {
-        return message;
+    not_enough_money_exception(std::string msg) : message(std::move(msg)) {}
+    const char* what() noexcept {
+        return message.c_str();
     }
 };
 
 class empty_name_exception : public std::exception {
 private:
-    char *message;
+    std::string message;
 public:
-    empty_name_exception(char *msg) : message(msg) {}
-    char *what() {
-        return message;
+    empty_name_exception(std::string msg) : message(std::move(msg)) {}
+    const char* what() noexcept {
+        return message.c_str();
     }
 };
 
 class invalid_player_type_exception : public std::exception {
 private:
-    char *message;
+    std::string message;
 public:
-    invalid_player_type_exception(char *msg) : message(msg) {}
-    char *what() {
-        return message;
+    invalid_player_type_exception(std::string msg) : message(std::move(msg)) {}
+    const char* what() noexcept {
+        return message.c_str();
     }
 };
 
 class position_outside_board_exception : public std::exception {
 private:
-    char *message;
+    std::string message;
 public:
-    position_outside_board_exception(char *msg) : message(msg) {}
-    char *what() {
-        return message;
+    position_outside_board_exception(std::string msg) : message(std::move(msg)) {}
+    const char* what() noexcept {
+        return message.c_str();
     }
 };
 
 class invalid_field_type_exception : public std::exception {
 private:
-    char *message;
+    std::string message;
 public:
-    invalid_field_type_exception(char *msg) : message(msg) {}
-    char *what() {
-        return message;
+    invalid_field_type_exception(std::string msg) : message(std::move(msg)) {}
+    const char* what() noexcept {
+        return message.c_str();
     }
 };
