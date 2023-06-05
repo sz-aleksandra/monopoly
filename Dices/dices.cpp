@@ -1,6 +1,4 @@
 #include "dices.h"
-#include <random>
-#include <iostream> //for printing endling
 
 Dice::Dice(int max_result){
     sides = max_result;
@@ -15,19 +13,24 @@ int Dice::roll(){
 
 Hand::Hand(std::vector<Dice> dices){
     dice_collection = dices;
+    same_result_counter = 0;
 }
 
-int Hand::roll_all(){
+int Hand::roll_all(bool print){
     int sum = 0;
+    int dice_counter = 0;
     int singular_result;
     std::vector<int> all_results;
     for (auto& dice : dice_collection) {
         singular_result = dice.roll();
-        //std::cout << singular_result << " "; //for testing or it might be useful to see all results
+        if (print)
+            std::cout << "Dice " << ++dice_counter << ": " << singular_result << "\n";
         sum += singular_result;
         all_results.push_back(singular_result);
     }
-    //std::cout << std::endl;
+
+    std::cout << "\nTotal: " << sum << "\n\n";
+
     same_result_counter += 1;
     for (int result : all_results){
         if (result != all_results[0]){
