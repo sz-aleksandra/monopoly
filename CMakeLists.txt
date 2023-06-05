@@ -9,4 +9,5 @@ add_compile_definitions(DEBUG=true)
 
 add_subdirectory(Player)
 add_subdirectory(Board)
+add_subdirectory(Dices)
 add_subdirectory(tests/Google)

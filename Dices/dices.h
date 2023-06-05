@@ -1,4 +1,7 @@
+#pragma once
 #include <vector>
+#include <random>
+#include <iostream>
 
 #pragma once
 
@@ -12,7 +15,7 @@ class Dice{
 class Hand{
     public:
     Hand(std::vector<Dice> dices);
-    int roll_all();
+    int roll_all(bool print=false);
     std::vector<Dice> dice_collection;
     int same_result_counter;
 };
