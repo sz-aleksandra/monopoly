@@ -48,5 +48,6 @@ class Deck{
     std::shared_ptr<CardType> draw_card();
     std::vector<std::shared_ptr<CardType>> load_cards_from_file(std::string file);
     void save_deck(std::string file);
+    void print_deck(std::string player_name, int number);
     std::vector<std::shared_ptr<CardType>> deck;
 };
