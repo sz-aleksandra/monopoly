@@ -10,7 +10,7 @@
 
 class PlayerDriver {
 private:
-    Player gamer;
+    Player player;
     Hand hand;
 public:
     PlayerDriver(Player &unit, Hand &roller);
