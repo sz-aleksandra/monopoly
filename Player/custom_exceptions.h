@@ -43,3 +43,13 @@ public:
         return message;
     }
 };
+
+class invalid_field_type_exception : public std::exception {
+private:
+    char *message;
+public:
+    invalid_field_type_exception(char *msg) : message(msg) {}
+    char *what() {
+        return message;
+    }
+};
