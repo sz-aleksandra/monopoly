@@ -1,6 +1,6 @@
 //program showcasing dices and ahnd classes
 
-#include "dices.cpp"
+#include "dices.h"
 #include <iostream>
 
 int main(){
@@ -8,7 +8,7 @@ int main(){
     my_dices.push_back(Dice(3));
     my_dices.push_back(Dice(3));
     Hand hand(my_dices);
-    std::cout << hand.roll_all() << std::endl;
+    hand.roll_all(true);
     std::cout << "same_results:" << hand.same_result_counter << std::endl;
     return 0;
 }
