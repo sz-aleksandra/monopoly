@@ -6,12 +6,14 @@
 #include <cctype>
 #include <algorithm>
 #include "player.h"
+#include "dices.h"
 
 class PlayerDriver {
 private:
     Player gamer;
+    Hand hand;
 public:
-    PlayerDriver(Player &unit);
+    PlayerDriver(Player &unit, Hand &roller);
     void make_turn();
     void move();
     void buy_house_menu();

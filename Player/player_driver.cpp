@@ -7,7 +7,7 @@
 #include "player_driver.h"
 
 // @TODO check if unit is player type
-PlayerDriver::PlayerDriver(Player &unit) : gamer(unit) {}
+PlayerDriver::PlayerDriver(Player &unit, Hand &roller) : gamer(unit), hand(roller) {}
 
 void PlayerDriver::make_turn() {
     std::cout << "------------------------------\n";
@@ -28,22 +28,14 @@ void PlayerDriver::make_turn() {
 
 void PlayerDriver::move() {
     std::cout << "Rolling dices...\n";
-    // @TODO use dices when they will be implemented
-    int roll_total = 0;
-    int roll_result;
-    roll_result = 3;
-    std::cout << "Dice 1: " << roll_result << "\n";
-    roll_total += roll_result;
-    roll_result = 6;
-    std::cout << "Dice 2: " << roll_result << "\n";
-    roll_total += roll_result;
-
-    std::cout << "Total result: " << roll_total << "\n\n";
+    int roll_total = hand.roll_all(true);
+    // @TODO implement doubles
 
     gamer.move_player(roll_total);
 
     std::string type;
     // @TODO get field type from board (?) class and update types names
+    type = "property";
     if (type == "property")
         property_actions();
     else if (type == "utility")
