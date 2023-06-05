@@ -31,8 +31,10 @@ void PlayerDriver::move() {
     int roll_total = hand.roll_all(true);
     // @TODO implement doubles
 
-    player.move_player(roll_total);
+    change_position_actions("move", roll_total);
+}
 
+void PlayerDriver::new_position_actions() {
     std::string type;
     // @TODO get field type from board (?) class and update types names
     type = "property";
@@ -76,3 +78,29 @@ void PlayerDriver::tax_actions() {}
 void PlayerDriver::card_actions(std::string type) {}
 
 void PlayerDriver::go_jail_actions() {}
+
+void PlayerDriver::change_position_actions(std::string type, int value) {
+    if (type == "move")
+        player.move_player(value);
+    else if (type == "set")
+        player.set_position(value);
+    else {
+        std::cout << "This type of change position action does not exist";
+        std::cout << "\nReceived type: " << type << "\n\n";
+        throw invalid_action_type_exception("Non existent type of position change action");
+    }
+    new_position_actions();
+}
+
+void PlayerDriver::give_money_actions(int amount) {
+    player.add_money(amount);
+}
+
+void PlayerDriver::take_money_actions(int amount) {
+    try {
+        player.take_money(amount);
+    }
+    catch (not_enough_money_exception& e) {
+        // @TODO bankruptcy mechanics
+    }
+}
