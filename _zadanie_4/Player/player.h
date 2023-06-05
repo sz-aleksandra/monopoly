@@ -6,7 +6,7 @@
 #include <set>
 
 class Player {
-private:
+protected:
     std::string name;
     int money;
     int position;   // on board
@@ -18,7 +18,7 @@ public:
     Player(std::string name_input);
 
     // setters and typical changing properties
-    void change_name(std::string name_input);
+    virtual void change_name(std::string name_input);
     void add_money(int amount);
     void take_money(int amount);
     void move_player(int amount);
@@ -42,4 +42,24 @@ public:
     void pay_off_mortgage(int index, int price);
     void buy_house(int index, int price);
     void buy_hotel(int index, int price);
+
+    // miscellaneous
+    void player_description();
+};
+
+class Human : public Player {
+private:
+    bool pass_login;
+    std::string password;
+public:
+    Human(std::string name_input, std::string set_pass="");
+    void set_password(std::string new_p);
+    void change_password(std::string old_p, std::string new_p);
+    void remove_password(std::string pass);
+};
+
+class Bot : public Player {
+public:
+    Bot(std::string name_input);
+    void change_name(std::string name_input);
 };
