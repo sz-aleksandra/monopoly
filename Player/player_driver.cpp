@@ -14,14 +14,14 @@ void PlayerDriver::make_turn() {
     std::cout << player.get_name() << " move!\n";
     std::cout << "------------------------------\n\n\n";
 
-    std::cout << "Do you want to buy houses? (Yes/No): ";
-    // @TODO check if there are any houses you can build
-    std::string decision;
-    std::cin >> decision;
-    transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
-    if (decision == "yes" || decision == "y") {
-        buy_house_menu();
-    }
+    // @TODO implement houses mechanics
+//    std::cout << "Do you want to buy houses? (Yes/No): ";
+//    std::string decision;
+//    std::cin >> decision;
+//    transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
+//    if (decision == "yes" || decision == "y") {
+//        buy_house_menu();
+//    }
 
     move();
 }
@@ -49,7 +49,7 @@ void PlayerDriver::move() {
     else if (type == "chance" || type == "community")
         card_actions(type);
     else if (type == "wait")
-        wait_actions();
+        ;
     else if (type == "go_jail")
         go_jail_actions();
     else {
@@ -63,9 +63,6 @@ void PlayerDriver::move() {
     }
 }
 
-// @TODO implement buying houses mechanics
-void PlayerDriver::buy_house_menu() {}
-
 void PlayerDriver::property_actions() {}
 
 void PlayerDriver::utility_actions() {}
@@ -77,7 +74,5 @@ void PlayerDriver::start_actions() {}
 void PlayerDriver::tax_actions() {}
 
 void PlayerDriver::card_actions(std::string type) {}
-
-void PlayerDriver::wait_actions() {}
 
 void PlayerDriver::go_jail_actions() {}

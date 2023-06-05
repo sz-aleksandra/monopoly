@@ -24,7 +24,6 @@ public:
     void start_actions();
     void tax_actions();
     void card_actions(std::string type);
-    void wait_actions();
     void go_jail_actions();
 
     void buy_house();
