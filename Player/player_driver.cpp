@@ -7,11 +7,11 @@
 #include "player_driver.h"
 
 // @TODO check if unit is player type
-PlayerDriver::PlayerDriver(Player &unit, Hand &roller) : gamer(unit), hand(roller) {}
+PlayerDriver::PlayerDriver(Player &unit, Hand &roller) : player(unit), hand(roller) {}
 
 void PlayerDriver::make_turn() {
     std::cout << "------------------------------\n";
-    std::cout << gamer.get_name() << " move!\n";
+    std::cout << player.get_name() << " move!\n";
     std::cout << "------------------------------\n\n\n";
 
     std::cout << "Do you want to buy houses? (Yes/No): ";
@@ -31,7 +31,7 @@ void PlayerDriver::move() {
     int roll_total = hand.roll_all(true);
     // @TODO implement doubles
 
-    gamer.move_player(roll_total);
+    player.move_player(roll_total);
 
     std::string type;
     // @TODO get field type from board (?) class and update types names
@@ -55,8 +55,8 @@ void PlayerDriver::move() {
     else {
         if (DEBUG) {
             std::cout << "This type of field does not exist";
-            std::cout << "\nPlayer: " << gamer.get_name();
-            std::cout << "\nNo. of property: " << gamer.get_position();
+            std::cout << "\nPlayer: " << player.get_name();
+            std::cout << "\nNo. of property: " << player.get_position();
             std::cout << "\nReceived type: " << type << "\n\n";
         }
         throw invalid_field_type_exception("Non-existent type of field");
