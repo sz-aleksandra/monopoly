@@ -27,7 +27,7 @@ public:
     void card_actions(std::string type);
     void go_jail_actions();
 
-    void change_position_actions(std::string type, int value); // types are move and set
+    void change_position_actions(std::string type, int value, bool skip_start=false); // types are move and set
     void give_money_actions(int amount);
     void take_money_actions(int amount);
 

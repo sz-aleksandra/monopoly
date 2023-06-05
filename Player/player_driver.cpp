@@ -30,6 +30,9 @@ void PlayerDriver::move() {
     std::cout << "Rolling dices...\n";
     int roll_total = hand.roll_all(true);
     // @TODO implement doubles
+    if (hand.same_result_counter >= 3) {
+
+    }
 
     change_position_actions("move", roll_total);
 }
@@ -44,8 +47,6 @@ void PlayerDriver::new_position_actions() {
         utility_actions();
     else if (type == "station")
         station_actions();
-    else if (type == "start")
-        start_actions();
     else if (type == "tax")
         tax_actions();
     else if (type == "chance" || type == "community")
@@ -71,19 +72,23 @@ void PlayerDriver::utility_actions() {}
 
 void PlayerDriver::station_actions() {}
 
-void PlayerDriver::start_actions() {}
-
 void PlayerDriver::tax_actions() {}
 
 void PlayerDriver::card_actions(std::string type) {}
 
 void PlayerDriver::go_jail_actions() {}
 
-void PlayerDriver::change_position_actions(std::string type, int value) {
-    if (type == "move")
+void PlayerDriver::change_position_actions(std::string type, int value, bool skip_start) {
+    if (type == "move") {
+        if (!skip_start && player.get_position() + value >= 40)
+            give_money_actions(200);
         player.move_player(value);
-    else if (type == "set")
+    }
+    else if (type == "set") {
+        if (!skip_start && player.get_position() < value)
+            give_money_actions(200);
         player.set_position(value);
+    }
     else {
         std::cout << "This type of change position action does not exist";
         std::cout << "\nReceived type: " << type << "\n\n";
