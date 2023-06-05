@@ -7,7 +7,6 @@
 #include "player.h"
 
 Player::Player(std::string name_input, std::string type) {
-    id = object_count++;
     if (type=="human" || type=="bot")
         player_type = std::move(type);
     else {
@@ -18,8 +17,9 @@ Player::Player(std::string name_input, std::string type) {
     if (name_input.empty()) {
         if (DEBUG)
             std::cout << "Tried to initialize player without name\n";
-        throw invalid_player_type_exception((char*)"Player cannot be initialized with empty name");
+        throw empty_name_exception((char*)"Player cannot be initialized with empty name");
     }
+    id = object_count++;
     name = std::move(name_input);
     if (player_type == "bot")
         name += " (Bot)";
@@ -108,6 +108,10 @@ void Player::set_player_alive() {
 
 
 /* ---------- GETTERS ---------- */
+int Player::get_id() {
+    return id;
+}
+
 std::string Player::get_name() {
     return name;
 }

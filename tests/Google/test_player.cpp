@@ -18,6 +18,10 @@ TEST(player_test, name) {
         }, empty_name_exception);
 
     ASSERT_EQ(a.get_name(), "Jakub");
+
+    EXPECT_THROW({
+        Player b("");
+        }, empty_name_exception);
 }
 
 
@@ -115,5 +119,22 @@ TEST(player_test, alive) {
 
     a.set_player_alive();
     ASSERT_EQ(a.is_alive(), true);
+}
+
+TEST(player_test, id) {
+    Player a("aaa");
+    ASSERT_EQ(a.get_id(), 0);
+    Player b("aaa");
+    ASSERT_EQ(b.get_id(), 1);
+
+    EXPECT_THROW({
+        Player c("");
+        }, empty_name_exception);
+    EXPECT_THROW({
+        Player d("aaa", "other_type");
+        }, invalid_player_type_exception);
+
+    Player e("aaa");
+    ASSERT_EQ(e.get_id(), 2);
 }
 
