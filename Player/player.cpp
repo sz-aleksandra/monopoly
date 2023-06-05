@@ -7,6 +7,7 @@
 #include "player.h"
 
 Player::Player(std::string name_input, std::string type) {
+    id = object_count++;
     if (type=="human" || type=="bot")
         player_type = std::move(type);
     else {
@@ -132,7 +133,8 @@ bool Player::is_alive() {
 }
 
 void Player::player_description() {
-    std::cout << "Player name: " << name;
+    std::cout << "Player id: " << id;
+    std::cout << "\nPlayer name: " << name;
     std::cout << "\nMoney amount: " << money;
     std::cout << "\nPosition on board (index): " << position;
     std::cout << "\nIs alive: " << ( (alive) ? "Yes" : "No" );
