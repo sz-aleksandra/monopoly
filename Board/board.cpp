@@ -110,7 +110,7 @@ void Board::printFields()
 	}
 }
 
-void Board::move_player(int player, int new_field, BoardDisplay &board)
+void Board::movePlayer(int player, int new_field, BoardDisplay &board)
 {
 	int new_x = 0;
 	int new_y = 0;
@@ -221,6 +221,7 @@ BoardDisplay::BoardDisplay(Board& actual_board_state)
 
 void BoardDisplay::printBoard(Board& board_state)
 {
+	system("cls");
 	vector<vector<int>> posisions = board_state.getPlayersLocations();
 
 	for (int i = 0; i < 4; i++)
@@ -269,6 +270,24 @@ void Property::addHouse()
 	}
 }
 
+void Property::addHotel()
+{
+	number_of_hotels++;
+}
+
+string Property::getName() { return name; }
+
+int Property::getOwner() { return owner; }
+
+float Property::getPurchasePrice() { return purchase_price; }
+
+string Property::getColor() { return color; }
+
+void Property::setOwner(int own)
+{
+	owner = own;
+}
+
 Utility::Utility(string name, int own, float price)
 	:Field(name), owner(own), purchase_price(price)
 {}
@@ -276,6 +295,17 @@ Utility::Utility(string name, int own, float price)
 void Utility::printFieldInfo()
 {
 	cout << " name: " << name << "\n purchase price: " << purchase_price << "\n owner: " << owner << endl;
+}
+
+float Utility::getPurchasePrice() { return purchase_price; }
+
+int Utility::getOwner() { return owner; }
+
+string Utility::getName() { return name; }
+
+void Utility::setOwner(int own)
+{
+	owner = own;
 }
 
 PenaltyField::PenaltyField(string name, float tax)
@@ -286,3 +316,7 @@ void PenaltyField::printFieldInfo()
 {
 	cout << " name: " << name << "\n tax to be paid to bank: " << tax_to_pay << endl;
 }
+
+string PenaltyField::getName() { return name; }
+
+float PenaltyField::getTaxToPay() { return tax_to_pay; }
