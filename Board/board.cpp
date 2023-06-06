@@ -54,6 +54,7 @@ void Board::setFieldCoordinates()
 	}
 }
 
+
 Board::Board()
 	:board_fields({}), fields_coordinates({}), players_locations({})
 {}
@@ -149,14 +150,13 @@ Board::Board(string filename, int players)
 	setFieldCoordinates();
 
 	//ustawienie pozycji N graczy
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		int x = fields_coordinates[0][0] + 1 + i;
 		int y = fields_coordinates[0][1] + 1 + i;
 		players_locations.push_back({ x,y });
 	}
 }
-
 
 void Board::printFieldInformations(int field_number)
 {
@@ -359,8 +359,18 @@ int Board::howManyRailroads(int player)
 	return counter;
 }
 
-Property::Property(string tp, string name, int price, string col, int own, int num_houses, int num_hotels)
-	:Field(tp, name), purchase_price(price), color(col), owner(own), number_of_houses(num_houses), number_of_hotels(num_hotels)
+bool Board::doesOnePlayerHaveAllUtilities()
+{
+	Utility* field1 = dynamic_cast<Utility*>(board_fields[12]);
+	Utility* field2 = dynamic_cast<Utility*>(board_fields[28]);
+
+	if (field1->getOwner() == field2->getOwner()) return true;
+
+	else return false;
+}
+
+Property::Property(string tp, string name, int price, string col, int rent, int own, int num_houses, int num_hotels)
+	:Field(tp, name), purchase_price(price), color(col), basic_rent(rent), owner(own), number_of_houses(num_houses), number_of_hotels(num_hotels)
 {}
 
 void Property::printFieldInfo()
@@ -384,6 +394,17 @@ void Property::addHouse()
 void Property::addHotel()
 {
 	number_of_hotels++;
+}
+
+int Property::getRent()
+{
+	int multiplier = 1;
+
+	if (number_of_houses > 0) multiplier = number_of_houses;
+
+	int rent = multiplier * basic_rent + number_of_hotels * basic_rent * 2;
+
+	return rent;
 }
 
 int Property::getOwner() { return owner; }
@@ -426,6 +447,17 @@ void Utility::setOwner(int own)
 	owner = own;
 }
 
+int Utility::getRentMultiplier(Board board)
+{
+	int multiplier = 1;
+
+	if (board.doesOnePlayerHaveAllUtilities()) return 10;
+
+	else return 4;
+}
+
+
+
 Penalty::Penalty(string tp, string name, int tax)
 	: Field(tp, name), tax_to_pay(tax)
 {}
@@ -465,8 +497,8 @@ void Special::printFieldInfo()
 	cout << "\n name: " << name << endl;
 }
 
-RailRoads::RailRoads(string tp, string nm, int price, int own)
-	:Field(tp, nm), purchase_price(price), owner(own)
+RailRoads::RailRoads(string tp, string nm, int price, int rent, int own)
+	:Field(tp, nm), purchase_price(price), basic_rent(rent), owner(own)
 {}
 
 void RailRoads::printFieldInfo()
@@ -482,6 +514,14 @@ int RailRoads::getPurchasePrice()
 int RailRoads::getOwner()
 {
 	return owner;
+}
+
+int RailRoads::getRent(int player, Board board)
+{
+	int multiplier = board.howManyRailroads(player);
+	int rent = basic_rent * multiplier;
+
+	return rent;
 }
 
 void RailRoads::setOwner(int own)
