@@ -159,7 +159,7 @@ Board::Board(string filename, Menu menu)
 	}
 }
 
- 
+
 void Board::printFieldInformations(int field_number)
 {
 	Field* field = board_fields[field_number];
