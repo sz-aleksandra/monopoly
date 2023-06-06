@@ -24,6 +24,10 @@ int main() {
     my_dices.emplace_back(6);
     Hand h(my_dices);
     PlayerDriver driver1(p1, h);
+    driver1.put_in_jail_actions();
+    p1.give_out_of_jail_card();
+    p1.give_out_of_jail_card();
+    p1.give_out_of_jail_card();
     driver1.make_turn();
 
     return 0;

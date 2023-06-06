@@ -10,8 +10,9 @@
 
 class PlayerDriver {
 private:
-    Player player;
-    Hand hand;
+    Player &player;
+    Hand &hand;
+    int go_out_chances;
 public:
     PlayerDriver(Player &unit, Hand &roller);
     void make_turn();
@@ -29,6 +30,7 @@ public:
     void change_position_actions(std::string type, int value, bool skip_start=false); // types are move and set
     void give_money_actions(int amount);
     void take_money_actions(int amount);
+    void put_in_jail_actions();
 
     void buy_house();
     void buy_property();
