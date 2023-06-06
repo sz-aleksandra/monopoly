@@ -5,11 +5,12 @@ using namespace std;
 
 int main()
 {
+
     string map_choice = "plansza1.txt";
 
     Board board(map_choice);
 
-    board.setNumberOfPlayers(5); 
+    board.setNumberOfPlayers(5);
     board.printBoard();
 
     int new_position = 15;
@@ -39,6 +40,8 @@ int main()
     int b = board.howManyRailroads(4);
 
     cout << b << endl;
+
+    board.doesOnePlayerHaveAllUtilities();
 
     return 0;
 }
