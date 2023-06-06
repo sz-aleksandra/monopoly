@@ -3,7 +3,6 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-#include "consoleview.h"
 
 using namespace std;
 
@@ -38,11 +37,12 @@ public:
 	int getOwner();
 	int getPurchasePrice();
 	string getColor();
+	int getNumberOfHouses();
+	int getNumberOfHotels();
 
 	void setOwner(int own);
 	void addHouse();
 	void addHotel();
-
 };
 
 class Utility : public Field
@@ -103,6 +103,11 @@ private:
 public:
 	RailRoads(string tp = "", string nm = "", int price = 0, int own = 0);
 	void printFieldInfo() override;
+
+	int getPurchasePrice();
+	int getOwner();
+
+	void setOwner(int own);
 };
 
 class BoardDisplay;
@@ -137,8 +142,6 @@ private:
 public:
 
 	BoardDisplay(Board& actual_board_state);
-
 	void printBoard(Board& board_state);
-
 	void setNewCords(int x, int y, string value);
 };

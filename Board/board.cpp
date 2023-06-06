@@ -1,4 +1,5 @@
 #include "board.h"
+#include "../ConsoleView/consoleview.h"
 
 
 Field::Field(string tp, string n)
@@ -9,7 +10,6 @@ string Field::getName()
 {
 	return name;
 }
-
 
 void Board::setFieldCoordinates()
 {
@@ -344,6 +344,16 @@ int Property::getPurchasePrice() { return purchase_price; }
 
 string Property::getColor() { return color; }
 
+int Property::getNumberOfHouses()
+{
+	return number_of_houses;
+}
+
+int Property::getNumberOfHotels()
+{
+	return number_of_hotels;
+}
+
 void Property::setOwner(int own)
 {
 	owner = own;
@@ -414,4 +424,19 @@ RailRoads::RailRoads(string tp, string nm, int price, int own)
 void RailRoads::printFieldInfo()
 {
 	cout << "\n name: " << name << endl;
+}
+
+int RailRoads::getPurchasePrice()
+{
+	return purchase_price;
+}
+
+int RailRoads::getOwner()
+{
+	return owner;
+}
+
+void RailRoads::setOwner(int own)
+{
+	owner = own;
 }
