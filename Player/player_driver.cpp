@@ -28,6 +28,10 @@ void PlayerDriver::make_turn() {
 //    }
 
     move();
+
+    std::cout << "End of move. Press ENTER to continue...";
+    std::cin.get();
+    std::cin.get();     // sometimes will lag but anyway
 }
 
 void PlayerDriver::move() {
@@ -46,7 +50,7 @@ void PlayerDriver::move() {
             hand.roll_all(true);
             if (hand.same_result_counter) {
                 std::cout << "You got double, you go out of jail\n";
-                player.put_out_of_jail();
+                put_out_of_jail_actions();
             }
             else {
                 go_out_chances--;
@@ -56,18 +60,18 @@ void PlayerDriver::move() {
                     std::cout << "You used all your chances. You have to pay 50$.\n";
                     take_money_actions(50);
                     std::cout << "You paid 50$ and you go out of jail. You have " << player.get_money() << "$.\n";
-                    player.put_out_of_jail();
+                    put_out_of_jail_actions();
                 }
             }
         }
         else if (decision == "2" && player.get_money() >= 50) {
             player.take_money(50);
-            player.put_out_of_jail();
+            put_out_of_jail_actions();
             std::cout << "You paid 50$. You have " << player.get_money() << "$.\n";
         }
         else if (decision == "3" && player.get_out_of_jail_cards()) {
             player.take_out_of_jail_card();
-            player.put_out_of_jail();
+            put_out_of_jail_actions();
             std::cout << "You used out of jail card. You have " << player.get_out_of_jail_cards() << " card" << ((player.get_out_of_jail_cards() == 1) ? ".\n" : "s.\n");
         }
         else {
@@ -92,9 +96,6 @@ void PlayerDriver::move() {
         else
             change_position_actions("move", roll_total);
     }
-    std::cout << "End of move. Press any key to continue...";
-    std::cin.get();
-    std::cin.get();     // sometimes will lag but anyway
 }
 
 void PlayerDriver::new_position_actions() {
@@ -174,4 +175,9 @@ void PlayerDriver::put_in_jail_actions() {
     player.put_in_jail();
     player.set_position(10);
     go_out_chances = 3;
+}
+
+void PlayerDriver::put_out_of_jail_actions() {
+    player.put_out_of_jail();
+    player.set_position(10);
 }

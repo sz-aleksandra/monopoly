@@ -31,6 +31,7 @@ public:
     void give_money_actions(int amount);
     void take_money_actions(int amount);
     void put_in_jail_actions();
+    void put_out_of_jail_actions();
 
     void buy_house();
     void buy_property();
