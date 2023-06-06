@@ -15,6 +15,7 @@ private:
     int position;   // on board
     std::set<int> properties;
     bool in_jail;
+    int out_of_jail_cards;
     bool alive;
     std::string player_type; // human/bot
 
@@ -33,6 +34,8 @@ public:
     void put_out_of_jail();
     void kill_player();
     void set_player_alive();
+    void give_out_of_jail_card();
+    void take_out_of_jail_card();
 
     // getters
     int get_id();
@@ -41,6 +44,7 @@ public:
     int get_position();
     bool has_property(int index);
     bool is_in_jail();
+    int get_out_of_jail_cards();
     bool is_alive();
 
     // miscellaneous

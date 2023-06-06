@@ -63,3 +63,13 @@ public:
         return message.c_str();
     }
 };
+
+class no_out_of_jail_cards_exception : public std::exception {
+private:
+    std::string message;
+public:
+    no_out_of_jail_cards_exception(std::string msg) : message(std::move(msg)) {}
+    const char* what() noexcept {
+        return message.c_str();
+    }
+};
