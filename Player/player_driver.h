@@ -15,9 +15,9 @@ class PlayerDriver {
 private:
     Player &player;
     Hand &hand;
-    Board board;
-    Deck<Card> deck_chance;
-    Deck<Card> deck_chest;
+    Board &board;
+    Deck<Card> &deck_chance;
+    Deck<Card> &deck_chest;
     vector<Player> *all_players;
     int go_out_chances;
 public:
@@ -42,5 +42,5 @@ public:
 
     void buy_house();
     void buy_property(int index, int price);
-    void pay_to_other(PlayerDriver &receiver, int amount);
+    void pay_to_other(Player &receiver, int amount);
 };

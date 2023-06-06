@@ -146,9 +146,13 @@ void PlayerDriver::property_actions() {
         std::cout << name << " is your property. Now you're chilling around flags with your face.\n";
     }
     else {
+        Player &receiver = all_players->at(owner-1);
         int rent = 0; // @TODO finish when implemented
-        std::cout << "Unfortunately, someone was here before you. Now you gotta pay " << rent << " $.\n";
-        // @TODO think about way to access other player
+        std::cout << "Unfortunately, " << receiver.get_name() << " was here before you. Now you gotta pay " << rent << " $.\n";
+
+        pay_to_other(receiver, rent);
+        std::cout << "Now you have " << player.get_money() << "$.\n";
+        std::cout << "Now " << receiver.get_name() << " has " << receiver.get_money() << "$.\n";
     }
 
 }
@@ -174,11 +178,14 @@ void PlayerDriver::utility_actions() {
         std::cout << name << " is your utility. Now you're chilling while seeing your workers.\n";
     }
     else {
+        Player &receiver = all_players->at(owner-1);
         int multiplier = 0; // @TODO finish when implemented
-        std::cout << "Unfortunately, someone was here before you. Now roll will decide about your fate. Rolling dices...\n\n";
+        std::cout << "Unfortunately, " << receiver.get_name() << " was here before you. Now roll will decide about your fate. Rolling dices...\n\n";
         int pay_base = hand.roll_all();
         std::cout << "Multiplier is " << multiplier << ", and roll result is " << pay_base << ". So you are paying " << multiplier*pay_base << "$.\n";
-        // @TODO think about way to access other player
+        pay_to_other(receiver, multiplier*pay_base);
+        std::cout << "Now you have " << player.get_money() << "$.\n";
+        std::cout << "Now " << receiver.get_name() << " has " << receiver.get_money() << "$.\n";
     }
 }
 
@@ -203,9 +210,12 @@ void PlayerDriver::railroads_actions() {
         std::cout << name << " is your railroad. You got a free tour around area, cool!\n";
     }
     else {
+        Player &receiver = all_players->at(owner-1);
         int rent = 0; // @TODO finish when implemented
-        std::cout << "Unfortunately, someone was here before you. Now you gotta pay " << rent << " $.\n";
-        // @TODO think about way to access other player
+        std::cout << "Unfortunately, " << receiver.get_name() << " was here before you. Now you gotta pay " << rent << " $.\n";
+        pay_to_other(receiver, rent);
+        std::cout << "Now you have " << player.get_money() << "$.\n";
+        std::cout << "Now " << receiver.get_name() << " has " << receiver.get_money() << "$.\n";
     }
 }
 
@@ -277,7 +287,7 @@ void PlayerDriver::buy_property(int index, int price) {
     // setting on board is done externally
 }
 
-void PlayerDriver::pay_to_other(PlayerDriver &receiver, int amount) {
+void PlayerDriver::pay_to_other(Player &receiver, int amount) {
     take_money_actions(amount);
-    receiver.give_money_actions(amount);
+    receiver.add_money(amount);
 }
