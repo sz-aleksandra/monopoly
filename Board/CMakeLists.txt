@@ -3,4 +3,4 @@ project(board)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(board main.cpp board.cpp board.h)
+add_executable(board main.cpp board.cpp board.h ../ConsoleView/consoleview.cpp ../ConsoleView/consoleview.h)
