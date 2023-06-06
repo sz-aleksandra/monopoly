@@ -14,3 +14,6 @@ add_subdirectory(Board)
 add_subdirectory(Dices)
 add_subdirectory(Cards)
 add_subdirectory(tests/Google)
+
+file(GLOB MY_FILES "*.txt")
+file(COPY ${MY_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
