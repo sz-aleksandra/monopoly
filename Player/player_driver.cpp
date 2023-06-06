@@ -129,23 +129,91 @@ void PlayerDriver::new_position_actions() {
 
 void PlayerDriver::property_actions() {
     auto field = (Property*)board.get_field(player.get_position());
-    //@TODO
+    std::string name = field->getName();
+    int owner = field->getOwner();
+    if (!owner) {
+        int cost = field->getPurchasePrice();
+        std::string decision;
+        std::cout << "No one has bought " << name << " yet. Cost of the field: " << cost << "$.\n";
+        std::cout << "Do you want to buy it? Yes/No: ";
+        std::cin >> decision;
+        transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
+        if (decision == "yes" || decision == "y") {
+            buy_property(player.get_position(), cost);
+            std::cout << "You bought " << name << ". Now you have " << player.get_money() << "$.\n";
+        }
+    }
+    else if (owner == player.get_id()) {
+        std::cout << name << " is your property. Now you're chilling around flags with your face.\n";
+    }
+    else {
+        int rent = 0; // @TODO finish when implemented
+        std::cout << "Unfortunately, someone was here before you. Now you gotta pay " << rent << " $.\n";
+        // @TODO think about way to access other player
+    }
+
 }
 
 void PlayerDriver::utility_actions() {
     auto field = (Utility*)board.get_field(player.get_position());
-    //@TODO
+    std::string name = field->getName();
+    int owner = field->getOwner();
+    if (!owner) {
+        int cost = field->getPurchasePrice();
+        std::string decision;
+        std::cout << "No one has bought " << name << " yet. Cost of the field: " << cost << "$.\n";
+        std::cout << "Do you want to buy it? Yes/No: ";
+        std::cin >> decision;
+        transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
+        if (decision == "yes" || decision == "y") {
+            buy_property(player.get_position(), cost);
+            std::cout << "You bought " << name << ". Now you have " << player.get_money() << "$.\n";
+        }
+    }
+    else if (owner == player.get_id()) {
+        std::cout << name << " is your utility. Now you're chilling while seeing your workers.\n";
+    }
+    else {
+        int multiplier = 0; // @TODO finish when implemented
+        std::cout << "Unfortunately, someone was here before you. Now roll will decide about your fate. Rolling dices...\n\n";
+        int pay_base = hand.roll_all();
+        std::cout << "Multiplier is " << multiplier << ", and roll result is " << pay_base << ". So you are paying " << multiplier*pay_base << "$.\n";
+        // @TODO think about way to access other player
+    }
 }
 
 void PlayerDriver::railroads_actions() {
     auto field = (RailRoads*)board.get_field(player.get_position());
-    //@TODO
+    std::string name = field->getName();
+    int owner = field->getOwner();
+    if (!owner) {
+        int cost = field->getPurchasePrice();
+        std::string decision;
+        std::cout << "No one has bought " << name << " yet. Cost of the field: " << cost << "$.\n";
+        std::cout << "Do you want to buy it? Yes/No: ";
+        std::cin >> decision;
+        transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
+        if (decision == "yes" || decision == "y") {
+            buy_property(player.get_position(), cost);
+            std::cout << "You bought " << name << ". Now you have " << player.get_money() << "$.\n";
+        }
+    }
+    else if (owner == player.get_id()) {
+        std::cout << name << " is your railroad. You got a free tour around area, cool!\n";
+    }
+    else {
+        int rent = 0; // @TODO finish when implemented
+        std::cout << "Unfortunately, someone was here before you. Now you gotta pay " << rent << " $.\n";
+        // @TODO think about way to access other player
+    }
 }
 
 void PlayerDriver::penalty_actions() {
     auto field = (Penalty*)board.get_field(player.get_position());
     int to_pay = field->getTaxToPay();
     std::cout << "You know what time is it? Time for tax! You pay " << to_pay << "$.\n";
+    take_money_actions(to_pay);
+    std::cout << "Now you have " << player.get_money() << "$.\n";
 }
 
 void PlayerDriver::card_actions(std::string type) {
@@ -200,4 +268,14 @@ void PlayerDriver::put_out_of_jail_actions() {
     player.put_out_of_jail();
     player.set_position(10);
     board.movePlayer(player.get_id(), player.get_position());
+}
+
+void PlayerDriver::buy_property(int index, int price) {
+    take_money_actions(price);
+    player.add_property(index);
+}
+
+void PlayerDriver::pay_to_other(PlayerDriver &receiver, int amount) {
+    take_money_actions(amount);
+    receiver.give_money_actions(amount);
 }

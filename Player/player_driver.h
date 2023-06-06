@@ -37,5 +37,6 @@ public:
     void put_out_of_jail_actions();
 
     void buy_house();
-    void buy_property();
+    void buy_property(int index, int price);
+    void pay_to_other(PlayerDriver &receiver, int amount);
 };
