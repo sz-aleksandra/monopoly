@@ -1,1 +1,40 @@
-Ziemia 560 0 0
+special Start
+property Mediter-Ranean_Avenue 60 brown
+chest Chest
+property Baltic_Avenue 60 brown
+penalty Income_Tax 200
+railroads Reading_Railroad 200
+property Oriental_Avenue 100 white
+chance Chance
+property Vermont_Avenue 100 white
+property Connecticut_Avenue 120 white
+special Jail
+property St_Charles_Place 140 pink
+utility Electric_Company 150
+property States_Avenue 140 pink
+property Virginia_Avenue 160 pink
+railroads Pennsylvania_Railroad 200
+property St_James_Place 180 orange
+chest Chest
+property Tennessee_Avenue 180 orange
+property New_York_Avenue 200 orange
+special Free_Parking
+property Kentucky_Avenue 220 red
+chance Chance
+property Indiania_Avenue 220 red
+property Illinois_Avenue 240 red
+railroads B_&_O_Railroad 200
+property Atlantic_Avenue 260 yellow
+property Ventnor_Avenue 260 yellow
+utility Water_Works 150
+property Marvin_Gardens 280 yellow
+special Go_To_Jail
+property Pacific_Avenue 300 green
+property North_Carolina_Avenue 300 green
+chest Chest
+property Pennsylvania_Avenue 320 green
+railroads Short_Line 200
+chance Chance
+property Park_Place 350 blue
+penalty Luxury_Tax 100
+property Boardwalk 400 blue

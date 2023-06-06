@@ -10,9 +10,10 @@ class Field
 {
 protected:
 	string name;
+	string field_type;
 
 public:
-	Field(string n);
+	Field(string tp, string n);
 	virtual void printFieldInfo() = 0;
 
 	string getName();
@@ -22,7 +23,7 @@ class Property : public Field
 {
 private:
 
-	float purchase_price;
+	int purchase_price;
 	string color;
 	int owner;
 	int number_of_houses;
@@ -30,12 +31,11 @@ private:
 
 
 public:
-	Property(string name = "", float price = 0.f, string col = "", int own = 0, int num_houses = 0, int num_hotels = 0);
+	Property(string tp = "", string name = "", int price = 0, string col = "", int own = 0, int num_houses = 0, int num_hotels = 0);
 	void printFieldInfo() override;
 
-	string getName();
 	int getOwner();
-	float getPurchasePrice();
+	int getPurchasePrice();
 	string getColor();
 
 	void setOwner(int own);
@@ -47,31 +47,61 @@ public:
 class Utility : public Field
 {
 private:
-	float purchase_price;
+	int purchase_price;
 	int owner; 
 
 public:
-	Utility(string name = "", int owner = 0, float price = 0.f);
+	Utility(string tp = "", string name = "", int price = 0, int owner = 0);
 	void printFieldInfo() override;
 
-	float getPurchasePrice();
+	int getPurchasePrice();
 	int getOwner();
-	string getName();
 
 	void setOwner(int own);
 };
 
-class PenaltyField : public Field
+class Penalty : public Field
 {
 private:
-	float tax_to_pay;
+	int tax_to_pay;
 
 public:
-	PenaltyField(string name = "", float tax = 0.f);
+	Penalty(string tp = "", string name = "", int tax = 0);
 	void printFieldInfo() override;
 
-	string getName();
-	float getTaxToPay();
+	int getTaxToPay();
+};
+
+class Chance : public Field
+{
+public:
+	Chance(string tp = "", string nm = "");
+	void printFieldInfo() override;
+};
+
+class Chest : public Field
+{
+public:
+	Chest(string tp = "", string nm = "");
+	void printFieldInfo() override;
+};
+
+class Special : public Field
+{
+public:
+	Special(string tp = "", string nm = "");
+	void printFieldInfo() override;
+};
+
+class RailRoads : public Field
+{
+private:
+	int purchase_price;
+	int owner;
+
+public:
+	RailRoads(string tp = "", string nm = "", int price = 0, int own = 0);
+	void printFieldInfo() override;
 };
 
 class BoardDisplay;
@@ -92,6 +122,7 @@ public:
 
 	void printFields();
 	void movePlayer(int player, int new_field, BoardDisplay &board);
+	vector<Field*> get_board_fields();
 
 	vector<vector<int>> getPlayersLocations();
 	

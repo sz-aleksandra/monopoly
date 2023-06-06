@@ -1,8 +1,8 @@
 #include "board.h"
 
 
-Field::Field(string n)
-	: name(n)
+Field::Field(string tp, string n)
+	: field_type(tp), name(n)
 {}
 
 string Field::getName()
@@ -69,17 +69,75 @@ Board::Board(string filename)
 	while (getline(file, line))
 	{
 		istringstream iss(line);
-		string name, color;
-		int price, owner;
-
-		if (!(iss >> name >> price >> owner >> color))
+		vector <string > values;
+		string value;
+		
+		while (iss >> value)
 		{
-			cout << "Blad odczytu" << endl;
-			break;
+			values.push_back(value);
 		}
 
-		Field* temp_field = new Property(name, price, color, owner);
-		board_fields.push_back(temp_field);
+		if (values[0] == "property")
+		{
+			string type = values[0];
+			string name = values[1];
+			int price = stoi(values[2]);
+			string color = values[3];
+
+			Field* temp_field = new Property(type, name, price, color);
+			board_fields.push_back(temp_field);
+		}
+		else if (values[0] == "special")
+		{
+			string type = values[0];
+			string name = values[1];
+
+			Field* temp_field = new Special(type, name);
+			board_fields.push_back(temp_field);
+		}
+		else if (values[0] == "chest")
+		{
+			string type = values[0];
+			string name = values[1];
+
+			Field* temp_field = new Chest(type, name);
+			board_fields.push_back(temp_field);
+		}
+		else if (values[0] == "penalty")
+		{
+			string type = values[0];
+			string name = values[1];
+			int tax_to_pay = stoi(values[2]);
+
+			Field* temp_field = new Penalty(type, name, tax_to_pay);
+			board_fields.push_back(temp_field);
+		}
+		else if (values[0] == "chance")
+		{
+			string type = values[0];
+			string name = values[1];
+
+			Field* temp_field = new Chance(type, name);
+			board_fields.push_back(temp_field);
+		}
+		else if (values[0] == "railroads")
+		{
+			string type = values[0];
+			string name = values[1];
+			int purchase_price = stoi(values[2]);
+
+			Field* temp_field = new RailRoads(type, name, purchase_price);
+			board_fields.push_back(temp_field);
+		}
+		else if (values[0] == "utility")
+		{
+			string type = values[0];
+			string name = values[1];
+			int purchase_price = stoi(values[2]);
+
+			Field* temp_field = new Utility(type, name, purchase_price);
+			board_fields.push_back(temp_field);
+		}
 	}
 
 	setFieldCoordinates();
@@ -170,6 +228,11 @@ void Board::movePlayer(int player, int new_field, BoardDisplay &board)
 	players_locations[player - 1] = { new_x, new_y };
 }
 
+vector<Field*> Board::get_board_fields()
+{
+	return board_fields;
+}
+
 vector<vector<int>> Board::getPlayersLocations()
 {
 	return players_locations;
@@ -248,13 +311,13 @@ void BoardDisplay::setNewCords(int x, int y, string value)
 	board[x][y] = value;
 }
 
-Property::Property(string name, float price, string col, int own, int num_houses, int num_hotels)
-	:Field(name), purchase_price(price), color(col), owner(own), number_of_houses(num_houses), number_of_hotels(num_hotels)
+Property::Property(string tp, string name, int price, string col, int own, int num_houses, int num_hotels)
+	:Field(tp, name), purchase_price(price), color(col), owner(own), number_of_houses(num_houses), number_of_hotels(num_hotels)
 {}
 
 void Property::printFieldInfo()
 {
-	cout << "\n name: " << name << "\n purchuse price: " << purchase_price << "\n color: " << color << "\n owner: " << owner;
+	cout << "\n name: " << name << "\n purchuse price: " << purchase_price << "\n color: " << color << "\n owner: " << owner << endl;
 
 	if (owner != 0)
 	{
@@ -275,11 +338,9 @@ void Property::addHotel()
 	number_of_hotels++;
 }
 
-string Property::getName() { return name; }
-
 int Property::getOwner() { return owner; }
 
-float Property::getPurchasePrice() { return purchase_price; }
+int Property::getPurchasePrice() { return purchase_price; }
 
 string Property::getColor() { return color; }
 
@@ -288,35 +349,69 @@ void Property::setOwner(int own)
 	owner = own;
 }
 
-Utility::Utility(string name, int own, float price)
-	:Field(name), owner(own), purchase_price(price)
+Utility::Utility(string tp, string name, int price, int own)
+	:Field(tp, name), purchase_price(price), owner(own)
 {}
 
 void Utility::printFieldInfo()
 {
-	cout << " name: " << name << "\n purchase price: " << purchase_price << "\n owner: " << owner << endl;
+	cout << "\n name: " << name << "\n purchase price: " << purchase_price << "\n owner: " << owner << endl;
 }
 
-float Utility::getPurchasePrice() { return purchase_price; }
+int Utility::getPurchasePrice() { return purchase_price; }
 
 int Utility::getOwner() { return owner; }
 
-string Utility::getName() { return name; }
 
 void Utility::setOwner(int own)
 {
 	owner = own;
 }
 
-PenaltyField::PenaltyField(string name, float tax)
-	: Field(name), tax_to_pay(tax)
+Penalty::Penalty(string tp, string name, int tax)
+	: Field(tp, name), tax_to_pay(tax)
 {}
 
-void PenaltyField::printFieldInfo()
+void Penalty::printFieldInfo()
 {
-	cout << " name: " << name << "\n tax to be paid to bank: " << tax_to_pay << endl;
+	cout << "\n name: " << name << "\n tax to be paid to bank: " << tax_to_pay << endl;
 }
 
-string PenaltyField::getName() { return name; }
 
-float PenaltyField::getTaxToPay() { return tax_to_pay; }
+int Penalty::getTaxToPay() { return tax_to_pay; }
+
+Chance::Chance(string tp, string nm)
+	:Field(tp, nm)
+{}
+
+void Chance::printFieldInfo()
+{
+	cout << "\n name: " << name << endl;
+}
+
+Chest::Chest(string tp, string nm)
+	:Field(tp, nm)
+{}
+
+void Chest::printFieldInfo()
+{
+	cout << "\n name: " << name << endl;
+}
+
+Special::Special(string tp, string nm)
+	:Field(tp, nm)
+{}
+
+void Special::printFieldInfo()
+{
+	cout << "\n name: " << name << endl;
+}
+
+RailRoads::RailRoads(string tp, string nm, int price, int own)
+	:Field(tp, nm), purchase_price(price), owner(own)
+{}
+
+void RailRoads::printFieldInfo()
+{
+	cout << "\n name: " << name << endl;
+}
