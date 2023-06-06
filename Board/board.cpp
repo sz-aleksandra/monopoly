@@ -1,4 +1,4 @@
-
+#pragma once
 #include "board.h"
 
 Field::Field(string tp, string n)
@@ -76,7 +76,7 @@ Board::Board(string filename, int players)
 		istringstream iss(line);
 		vector <string > values;
 		string value;
-		
+
 		while (iss >> value)
 		{
 			values.push_back(value);
@@ -324,7 +324,7 @@ bool Board::doesPlayerHaveAllFields(int player, string color)
 		if (field->getType() == "property")
 		{
 			Property* new_field = dynamic_cast<Property*>(field);
-			
+
 			if (new_field->getColor() == color && new_field->getOwner() == player)
 			{
 				counter++;
@@ -333,7 +333,7 @@ bool Board::doesPlayerHaveAllFields(int player, string color)
 	}
 
 	if ((color == "blue" || color == "brown") && counter == 2) return true;
-	
+
 	else if (!(color == "blue" || color == "brown") && counter == 3) return true;
 
 	else return false;

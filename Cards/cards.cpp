@@ -1,3 +1,4 @@
+#pragma once
 #include "cards.h"
 #include <iostream>
 #include <algorithm>

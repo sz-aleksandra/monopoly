@@ -5,11 +5,11 @@
 #include <iostream>
 #include <cctype>
 #include <algorithm>
-#include "player.h"
-#include "dices.h"
-#include "consoleview.h"
-#include "board.h"
-#include "cards.h"
+#include "../Player/player.cpp"
+#include "../Dices/dices.cpp"
+#include "../ConsoleView/consoleview.cpp"
+#include "../Board/board.cpp"
+#include "../Cards/cards.cpp"
 
 class PlayerDriver {
 private:
@@ -20,6 +20,7 @@ private:
     Deck<Card> deck_chest;
     vector<Player> all_players;
     int go_out_chances;
+    friend class Order;
 public:
     PlayerDriver(Player &unit, Hand &roller, Board &board, Deck<Card> &chances, Deck<Card> &chests, vector<Player> &players);
     void make_turn();

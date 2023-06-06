@@ -1,3 +1,4 @@
+#pragma once
 #include "dices.h"
 
 Dice::Dice(int max_result){

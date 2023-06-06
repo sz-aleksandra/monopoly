@@ -241,15 +241,13 @@ Order::Order(){
 
 Order::Order(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest){
     for (auto& player : players){
-        players_order.push_back(PlayerDriver(player, hand));
-        //players_order.push_back(PlayerDriver(player, hand, board, chance, chest, players));
+        players_order.push_back(PlayerDriver(player, hand, board, chance, chest, players));
     }
 }
 
 void Order::add_players(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest){
     for (auto& player : players){
-        players_order.push_back(PlayerDriver(player, hand));
-        //players_order.push_back(PlayerDriver(player, hand, board, chance, chest, players));
+        players_order.push_back(PlayerDriver(player, hand, board, chance, chest, players));
     }
 }
 
