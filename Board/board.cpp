@@ -303,7 +303,15 @@ void Board::setNewCords(int x, int y, string value)
 
 void Board::removePlayer(int player)
 {
+	vector<int> player_location = players_locations[player - 1];
+	int x = player_location[0];
+	int y = player_location[1];
 
+	setNewCords(x, y, ". ");
+	players_locations.erase(players_locations.begin() + player - 1);
+	players.erase(player - 1, 1);
+
+	number_of_players--;
 }
 
 Property::Property(string tp, string name, int price, string col, int own, int num_houses, int num_hotels)

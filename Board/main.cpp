@@ -9,15 +9,16 @@ int main()
 
     Board board(map_choice);
 
-    board.setNumberOfPlayers(4); 
+    board.setNumberOfPlayers(5); 
     board.printBoard();
 
     int new_position = 15;
     board.movePlayer(1, new_position);
-
     board.printBoard();
 
 
+    board.removePlayer(2);
+    board.printBoard();
 
     //board.printFieldInformations(new_position);
   

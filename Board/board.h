@@ -119,6 +119,7 @@ protected:
 	vector <vector<int >> players_locations;
 	string board[22][22];
 	string players = "ABCDEF";
+
 	int number_of_players;
 
 	void setFieldCoordinates();
