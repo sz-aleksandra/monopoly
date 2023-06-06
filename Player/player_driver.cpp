@@ -138,6 +138,7 @@ void PlayerDriver::property_actions() {
         transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
         if (decision == "yes" || decision == "y") {
             buy_property(player.get_position(), cost);
+            field->setOwner(player.get_id());
             std::cout << "You bought " << name << ". Now you have " << player.get_money() << "$.\n";
         }
     }
@@ -165,6 +166,7 @@ void PlayerDriver::utility_actions() {
         transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
         if (decision == "yes" || decision == "y") {
             buy_property(player.get_position(), cost);
+            field->setOwner(player.get_id());
             std::cout << "You bought " << name << ". Now you have " << player.get_money() << "$.\n";
         }
     }
@@ -193,6 +195,7 @@ void PlayerDriver::railroads_actions() {
         transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
         if (decision == "yes" || decision == "y") {
             buy_property(player.get_position(), cost);
+            field->setOwner(player.get_id());
             std::cout << "You bought " << name << ". Now you have " << player.get_money() << "$.\n";
         }
     }
@@ -271,6 +274,7 @@ void PlayerDriver::put_out_of_jail_actions() {
 void PlayerDriver::buy_property(int index, int price) {
     take_money_actions(price);
     player.add_property(index);
+    // setting on board is done externally
 }
 
 void PlayerDriver::pay_to_other(PlayerDriver &receiver, int amount) {
