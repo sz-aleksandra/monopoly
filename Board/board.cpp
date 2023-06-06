@@ -284,7 +284,7 @@ BoardDisplay::BoardDisplay(Board& actual_board_state)
 
 void BoardDisplay::printBoard(Board& board_state)
 {
-	system("cls");
+    clear_screen();
 	vector<vector<int>> posisions = board_state.getPlayersLocations();
 
 	for (int i = 0; i < 4; i++)

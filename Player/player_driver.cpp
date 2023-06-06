@@ -5,15 +5,14 @@
 #   define DEBUG false
 #endif
 #include "player_driver.h"
+#include "consoleview.h"
 
 // @TODO check if unit is player type
 PlayerDriver::PlayerDriver(Player &unit, Hand &roller) : player(unit), hand(roller), go_out_chances(0) {}
 
 void PlayerDriver::make_turn() {
     // @TODO think about better way to do that, maybe with try
-    // it ain't the best looking way, but clion can't work with system calls :c
-    for (int i=0; i<100; i++)
-        std::cout << "\n";
+    clear_screen();
     std::cout << "------------------------------\n";
     std::cout << player.get_name() << " move!\n";
     std::cout << "------------------------------\n\n\n";
@@ -30,8 +29,7 @@ void PlayerDriver::make_turn() {
     move();
 
     std::cout << "End of move. Press ENTER to continue...";
-    std::cin.get();
-    std::cin.get();     // sometimes will lag but anyway
+    wait_for_key();
 }
 
 void PlayerDriver::move() {

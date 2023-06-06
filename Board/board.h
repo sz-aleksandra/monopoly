@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include "consoleview.h"
 
 using namespace std;
 
