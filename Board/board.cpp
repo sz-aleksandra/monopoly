@@ -314,6 +314,50 @@ void Board::removePlayer(int player)
 	number_of_players--;
 }
 
+bool Board::doesPlayerHaveAllFields(int player, string color)
+{
+	int counter = 0;
+
+	for (Field* field : board_fields)
+	{
+		if (field->getType() == "property")
+		{
+			Property* new_field = dynamic_cast<Property*>(field);
+			
+			if (new_field->getColor() == color && new_field->getOwner() == player)
+			{
+				counter++;
+			}
+		}
+	}
+
+	if ((color == "blue" || color == "brown") && counter == 2) return true;
+	
+	else if (!(color == "blue" || color == "brown") && counter == 3) return true;
+
+	else return false;
+}
+
+int Board::howManyRailroads(int player)
+{
+	int counter = 0;
+
+	for (Field* field : board_fields)
+	{
+		if (field->getType() == "railroads")
+		{
+			RailRoads* new_field = dynamic_cast<RailRoads*>(field);
+			int owner = new_field->getOwner();
+
+			if (new_field->getOwner() == player)
+			{
+				counter++;
+			}
+		}
+	}
+	return counter;
+}
+
 Property::Property(string tp, string name, int price, string col, int own, int num_houses, int num_hotels)
 	:Field(tp, name), purchase_price(price), color(col), owner(own), number_of_houses(num_houses), number_of_hotels(num_hotels)
 {}

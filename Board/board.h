@@ -137,6 +137,8 @@ public:
 	void createBoard();
 	void printBoard();
 	void setNewCords(int x, int y, string value);
-
 	void removePlayer(int player);
+
+	bool doesPlayerHaveAllFields(int player, string color);
+	int howManyRailroads(int player);
 };
