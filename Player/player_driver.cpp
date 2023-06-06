@@ -6,11 +6,9 @@
 #endif
 #include "player_driver.h"
 
-// @TODO check if unit is player type
 PlayerDriver::PlayerDriver(Player &unit, Hand &roller, Board &board, Deck<Card> &chances, Deck<Card> &chests, vector<Player> &players) : player(unit), hand(roller), board(board), deck_chance(chances), deck_chest(chests), all_players(players), go_out_chances(0) {}
 
 void PlayerDriver::make_turn() {
-    // @TODO think about better way to do that, maybe with try
     clear_screen();
     board.printBoard();
     std::cout << "\n------------------------------\n";
