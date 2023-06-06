@@ -124,7 +124,6 @@ protected:
 public:
 	Board();
 	Board(string filename);
-	~Board();
 
 	void printFieldInformations(int field);
 	void movePlayer(int player, int new_field, BoardDisplay &board);

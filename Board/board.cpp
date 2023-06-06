@@ -151,14 +151,6 @@ Board::Board(string filename)
 	}
 }
 
-Board::~Board()
-{
-	for (Field* field : board_fields)
-	{
-		delete field;
-	}
-	board_fields.clear();
-}
 
 void Board::printFieldInformations(int field_number)
 {
