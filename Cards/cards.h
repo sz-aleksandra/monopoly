@@ -1,8 +1,7 @@
+#pragma once
 #include <string>
 #include <vector>
 #include <memory>
-
-#pragma once
 
 class Card{
     public:
