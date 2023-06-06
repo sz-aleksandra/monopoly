@@ -26,6 +26,7 @@ Player::Player(std::string name_input, std::string type) {
     money = 1500;
     position = 0;
     in_jail = false;
+    out_of_jail_cards = 0;
     alive = true;
 }
 
@@ -106,6 +107,19 @@ void Player::set_player_alive() {
     alive = true;
 }
 
+void Player::give_out_of_jail_card() {
+    out_of_jail_cards++;
+}
+
+void Player::take_out_of_jail_card() {
+    if (out_of_jail_cards)
+        out_of_jail_cards--;
+    else {
+        if (DEBUG)
+            std::cout << "Tried to take out of jail card, when player doesn't have them\n";
+        throw no_out_of_jail_cards_exception("Tried to take out of jail card without having them");
+    }
+}
 
 /* ---------- GETTERS ---------- */
 int Player::get_id() {
@@ -130,6 +144,10 @@ bool Player::has_property(int index) {
 
 bool Player::is_in_jail() {
     return in_jail;
+}
+
+int Player::get_out_of_jail_cards() {
+    return out_of_jail_cards;
 }
 
 bool Player::is_alive() {
