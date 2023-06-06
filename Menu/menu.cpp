@@ -42,10 +42,26 @@ void Menu::print_menu_screen(){
         std::cin >> option;
         switch (option[0]){
             case 'S':
-                //make turn?
+                if ((dices.size() != 0) && (players.size() != 0)){
+                    //make turn?
+                } else {
+                    std::cout << R"(
+                                                You need to add dices and players first!
+                )" << std::endl;
+                std::this_thread::sleep_for(std::chrono::seconds(3));
+                clear_screen();
+                }
                 break;
             case 's':
-                //make turn?
+                if ((dices.size() != 0) && (players.size() != 0)){
+                    //make turn?
+                } else {
+                    std::cout << R"(
+                                                You need to add dices and players first!
+                )" << std::endl;
+                std::this_thread::sleep_for(std::chrono::seconds(3));
+                clear_screen();
+                }
                 break;
             case 'P':
                 add_players();
@@ -62,7 +78,7 @@ void Menu::print_menu_screen(){
             case 'E':
                 std::cout << R"(
                                                               Exiting...
-                )";
+                )" << std::endl;
                 std::this_thread::sleep_for(std::chrono::seconds(3));
                 clear_screen();
                 std::exit(0);
@@ -70,7 +86,7 @@ void Menu::print_menu_screen(){
             case 'e':
                 std::cout << R"(
                                                               Exiting...
-                )";
+                )" << std::endl;
                 std::this_thread::sleep_for(std::chrono::seconds(3));
                 clear_screen();
                 std::exit(0);
@@ -78,7 +94,7 @@ void Menu::print_menu_screen(){
             default:
                 std::cout << R"(
                                                        Invalid option! Try again.
-                )";
+                )" << std::endl;
                 std::this_thread::sleep_for(std::chrono::seconds(3));
                 break;
         }
@@ -110,7 +126,7 @@ void Menu::add_players(){
             break;
         default:
             std::cout << R"(
-                                                            Invalid argument!
+                                                            Invalid argument! Try again.
             )" << std::endl;
             break;
     }
