@@ -12,13 +12,14 @@ Player::Player(std::string name_input, std::string type) {
     else {
         if (DEBUG)
             std::cout << "Tried to create player who isn't human nor bot\n";
-        throw invalid_player_type_exception((char*)"Player has to be human or bot");
+        throw invalid_player_type_exception("Player has to be human or bot");
     }
     if (name_input.empty()) {
         if (DEBUG)
             std::cout << "Tried to initialize player without name\n";
-        throw invalid_player_type_exception((char*)"Player cannot be initialized with empty name");
+        throw empty_name_exception("Player cannot be initialized with empty name");
     }
+    id = object_count++;
     name = std::move(name_input);
     if (player_type == "bot")
         name += " (Bot)";
@@ -33,7 +34,7 @@ void Player::change_name(std::string name_input) {
     if (name_input.empty()) {
         if (DEBUG)
             std::cout << "Tried to change name to an empty string\n";
-        throw empty_name_exception((char *) "Player cannot have its name changed to an empty string");
+        throw empty_name_exception(("Player cannot have its name changed to an empty string"));
     }
     name = std::move(name_input);
     if (player_type == "bot")
@@ -48,7 +49,7 @@ void Player::take_money(int amount) {
     if (amount > money) {
         if (DEBUG)
             std::cout << "Tried to remove more money than player has\n";
-        throw not_enough_money_exception((char *) "Tried to take more money than player has");
+        throw not_enough_money_exception(("Tried to take more money than player has"));
     }
     money -= amount;
 }
@@ -64,7 +65,7 @@ void Player::set_position(int new_location) {
     if (new_location < 0 || new_location >= 40) {
         if (DEBUG)
             std::cout << "Tried to move outside board\n";
-        throw position_outside_board_exception((char*)"Cannot change player position to one outside board");
+        throw position_outside_board_exception("Cannot change player position to one outside board");
     }
     position = new_location;
 }
@@ -107,6 +108,10 @@ void Player::set_player_alive() {
 
 
 /* ---------- GETTERS ---------- */
+int Player::get_id() {
+    return id;
+}
+
 std::string Player::get_name() {
     return name;
 }
@@ -132,7 +137,8 @@ bool Player::is_alive() {
 }
 
 void Player::player_description() {
-    std::cout << "Player name: " << name;
+    std::cout << "Player id: " << id;
+    std::cout << "\nPlayer name: " << name;
     std::cout << "\nMoney amount: " << money;
     std::cout << "\nPosition on board (index): " << position;
     std::cout << "\nIs alive: " << ( (alive) ? "Yes" : "No" );
