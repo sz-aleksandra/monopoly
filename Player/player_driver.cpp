@@ -98,23 +98,23 @@ void PlayerDriver::move() {
 void PlayerDriver::new_position_actions() {
     board.movePlayer(player.get_id(), player.get_position());
     board.printBoard();
-    // @TODO get field type from board (?) class and update types names
-    Field* field = board.get_field(player.get_position());
-    std::string type = field->getType();
+    std::string name = board.get_field(player.get_position())->getName();
+    std::cout << "You are on " << name << "\n";
+    std::string type = board.get_field(player.get_position())->getType();
     if (type == "property")
         property_actions();
     else if (type == "utility")
         utility_actions();
-    else if (type == "station")
-        station_actions();
-    else if (type == "tax")
-        tax_actions();
-    else if (type == "chance" || type == "community")
+    else if (type == "railroads")
+        railroads_actions();
+    else if (type == "penalty")
+        penalty_actions();
+    else if (type == "chance" || type == "chest")
         card_actions(type);
-    else if (type == "wait")
-        ;
-    else if (type == "go_jail")
+    else if (type == "special" && name == "Go_To_Jail")
         go_jail_actions();
+    else if (type == "special")
+        ;
     else {
         if (DEBUG) {
             std::cout << "This type of field does not exist";
@@ -126,17 +126,33 @@ void PlayerDriver::new_position_actions() {
     }
 }
 
-void PlayerDriver::property_actions() {}
+void PlayerDriver::property_actions() {
+    auto field = (Property*)board.get_field(player.get_position());
+    //@TODO
+}
 
-void PlayerDriver::utility_actions() {}
+void PlayerDriver::utility_actions() {
+    auto field = (Utility*)board.get_field(player.get_position());
+    //@TODO
+}
 
-void PlayerDriver::station_actions() {}
+void PlayerDriver::railroads_actions() {
+    auto field = (RailRoads*)board.get_field(player.get_position());
+    //@TODO
+}
 
-void PlayerDriver::tax_actions() {}
+void PlayerDriver::penalty_actions() {
+    auto field = (Penalty*)board.get_field(player.get_position());
+    //@TODO
+}
 
-void PlayerDriver::card_actions(std::string type) {}
+void PlayerDriver::card_actions(std::string type) {
+    //@TODO
+}
 
-void PlayerDriver::go_jail_actions() {}
+void PlayerDriver::go_jail_actions() {
+    //@TODO
+}
 
 void PlayerDriver::change_position_actions(std::string type, int value, bool skip_start) {
     if (type == "move") {

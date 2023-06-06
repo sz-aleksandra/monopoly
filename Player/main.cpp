@@ -9,7 +9,6 @@
 #include "player.h"
 #include "player_driver.h"
 #include "dices.h"
-#include "board.h"
 
 
 using namespace std;

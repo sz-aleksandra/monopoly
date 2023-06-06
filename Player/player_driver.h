@@ -25,8 +25,8 @@ public:
 
     void property_actions();
     void utility_actions();
-    void station_actions();
-    void tax_actions();
+    void railroads_actions();
+    void penalty_actions();
     void card_actions(std::string type);
     void go_jail_actions();
 
