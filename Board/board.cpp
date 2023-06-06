@@ -1,6 +1,5 @@
-#include "board.h"
-#include "../ConsoleView/consoleview.h"
 
+#include "board.h"
 
 Field::Field(string tp, string n)
 	: field_type(tp), name(n)
@@ -9,6 +8,11 @@ Field::Field(string tp, string n)
 string Field::getName()
 {
 	return name;
+}
+
+string Field::getType()
+{
+	return field_type;
 }
 
 void Board::setFieldCoordinates()
@@ -54,7 +58,7 @@ Board::Board()
 	:board_fields({}), fields_coordinates({}), players_locations({})
 {}
 
-Board::Board(string filename)
+Board::Board(string filename, Menu menu)
 {
 	ifstream file(filename);
 
@@ -140,10 +144,14 @@ Board::Board(string filename)
 		}
 	}
 
+	createBoard();
 	setFieldCoordinates();
 
-	//ustawienie pozycji 4 graczy
-	for (int i = 0; i < 4; i++)
+	vector<Player> players = menu.players;
+	number_of_players = players.size();
+
+	//ustawienie pozycji N graczy
+	for (int i = 0; i < number_of_players; i++)
 	{
 		int x = fields_coordinates[0][0] + 1 + i;
 		int y = fields_coordinates[0][1] + 1 + i;
@@ -151,14 +159,14 @@ Board::Board(string filename)
 	}
 }
 
-
+ 
 void Board::printFieldInformations(int field_number)
 {
 	Field* field = board_fields[field_number];
 	field->printFieldInfo();
 }
 
-void Board::movePlayer(int player, int new_field, BoardDisplay &board)
+void Board::movePlayer(int player, int new_field)
 {
 	int new_x = 0;
 	int new_y = 0;
@@ -214,7 +222,7 @@ void Board::movePlayer(int player, int new_field, BoardDisplay &board)
 		new_y = new_position[1] + player;
 	}
 
-	board.setNewCords(current_position[0], current_position[1], ". ");
+	setNewCords(current_position[0], current_position[1], ". ");
 	players_locations[player - 1] = { new_x, new_y };
 }
 
@@ -223,13 +231,7 @@ Field* Board::get_field(int index)
 	return board_fields[index];
 }
 
-vector<vector<int>> Board::getPlayersLocations()
-{
-	return players_locations;
-}
-
-
-BoardDisplay::BoardDisplay(Board& actual_board_state)
+void Board::createBoard()
 {
 	for (int i = 0; i < 22; i++)
 	{
@@ -270,19 +272,14 @@ BoardDisplay::BoardDisplay(Board& actual_board_state)
 			}
 		}
 	}
-
-
 }
 
-void BoardDisplay::printBoard(Board& board_state)
+void Board::printBoard()
 {
-    clear_screen();
-	vector<vector<int>> posisions = board_state.getPlayersLocations();
-
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < number_of_players; i++)
 	{
-		string players = "ABCD";
-		vector<int> current_position = posisions[i];
+		string players = "ABCDEF";
+		vector<int> current_position = players_locations[i];
 
 		board[current_position[0]][current_position[1]] = string(1, players[i]) + " ";
 	}
@@ -292,13 +289,13 @@ void BoardDisplay::printBoard(Board& board_state)
 		for (int j = 0; j < 20; j++)
 		{
 			cout << board[i][j] << " ";
-			
+
 		}
 		cout << endl;
 	}
 }
 
-void BoardDisplay::setNewCords(int x, int y, string value)
+void Board::setNewCords(int x, int y, string value)
 {
 	board[x][y] = value;
 }
