@@ -28,7 +28,8 @@ int main() {
     p1.give_out_of_jail_card();
     p1.give_out_of_jail_card();
     p1.give_out_of_jail_card();
-    driver1.make_turn();
+    for (int i=0; i<10; i++)
+        driver1.make_turn();
 
     return 0;
 }

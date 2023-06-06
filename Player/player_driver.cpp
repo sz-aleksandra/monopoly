@@ -10,6 +10,10 @@
 PlayerDriver::PlayerDriver(Player &unit, Hand &roller) : player(unit), hand(roller), go_out_chances(0) {}
 
 void PlayerDriver::make_turn() {
+    // @TODO think about better way to do that, maybe with try
+    // it ain't the best looking way, but clion can't work with system calls :c
+    for (int i=0; i<100; i++)
+        std::cout << "\n";
     std::cout << "------------------------------\n";
     std::cout << player.get_name() << " move!\n";
     std::cout << "------------------------------\n\n\n";
@@ -88,6 +92,9 @@ void PlayerDriver::move() {
         else
             change_position_actions("move", roll_total);
     }
+    std::cout << "End of move. Press any key to continue...";
+    std::cin.get();
+    std::cin.get();     // sometimes will lag but anyway
 }
 
 void PlayerDriver::new_position_actions() {
