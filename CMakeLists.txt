@@ -7,8 +7,12 @@ set(CMAKE_CXX_STANDARD 17)
 add_compile_definitions(DEBUG=true)
 # add_compile_definitions(DEBUG=false)
 
-include_directories(Player Board Dices Cards tests/Google)
+# uncomment this line if you work in clion on linux (clearing window)
+# add_compile_definitions(dummy=true)
 
+include_directories(ConsoleView Player Board Dices Cards tests/Google)
+
+add_subdirectory(ConsoleView)
 add_subdirectory(Player)
 add_subdirectory(Board)
 add_subdirectory(Dices)
