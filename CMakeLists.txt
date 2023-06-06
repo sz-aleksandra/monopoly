@@ -13,7 +13,6 @@ add_compile_definitions(DEBUG=true)
 include_directories(ConsoleView Menu Player Board Dices Cards tests/Google)
 
 add_subdirectory(Menu)
-add_subdirectory(ConsoleView)
 add_subdirectory(Player)
 add_subdirectory(Board)
 add_subdirectory(Dices)
