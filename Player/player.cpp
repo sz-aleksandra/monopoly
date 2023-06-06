@@ -19,7 +19,7 @@ Player::Player(std::string name_input, std::string type) {
             std::cout << "Tried to initialize player without name\n";
         throw empty_name_exception("Player cannot be initialized with empty name");
     }
-    id = object_count++;
+    id = ++object_count;
     name = std::move(name_input);
     if (player_type == "bot")
         name += " (Bot)";
