@@ -1,8 +1,7 @@
+#pragma once
 #include <vector>
 #include <random>
 #include <iostream>
-
-#pragma once
 
 class Dice{
     public:

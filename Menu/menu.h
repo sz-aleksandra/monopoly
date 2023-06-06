@@ -1,18 +1,22 @@
-#include "player.h"
-#include "dices.h"
-#include <vector>
-
 #pragma once
+
+//#include "../Player/player.cpp"
+//#include "../Dices/dices.cpp"
+#include "../Board/board.cpp"
+#include "../Cards/cards.cpp"
+#include "../Player/player_driver.cpp"
+#include <vector>
 
 class Order{
     public:
     Order();
-    Order(std::vector<Player> players);
-    void add_players(std::vector<Player> players);
+    Order(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest);
+    void add_players(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest);
     void shuffle();
-    Player whose_turn();
+    PlayerDriver whose_turn();
     void print_order();
-    std::vector<Player> players_order;
+    std::vector<PlayerDriver> players_order;
+    std::vector<Player> players_list;
 };
 
 class Menu{
@@ -26,8 +30,10 @@ class Menu{
     void start_game();
     std::vector<Player> players;
     std::vector<std::string> nicknames;
-    std::vector<Player> bots;
     std::vector<Dice> dices;
     Order order;
     Hand hand;
+    Deck<Card> chest; //chest
+    Deck<Card> chance;
+    Board board;
 };

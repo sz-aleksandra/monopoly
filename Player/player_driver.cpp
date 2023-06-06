@@ -6,7 +6,7 @@
 #endif
 #include "player_driver.h"
 
-PlayerDriver::PlayerDriver(Player &unit, Hand &roller, Board &board, Deck<Card> &chances, Deck<Card> &chests, vector<Player> &players) : player(unit), hand(roller), board(board), deck_chance(chances), deck_chest(chests), all_players(players), go_out_chances(0) {}
+PlayerDriver::PlayerDriver(Player &unit, Hand &roller, Board &board, Deck<Card> &chances, Deck<Card> &chests, vector<Player> *players) : player(unit), hand(roller), board(board), deck_chance(chances), deck_chest(chests), all_players(players), go_out_chances(0) {}
 
 void PlayerDriver::make_turn() {
     clear_screen();

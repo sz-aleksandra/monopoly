@@ -1,4 +1,6 @@
+#pragma once
 #include "menu.h"
+//#include "../ConsoleView/consoleview.cpp"
 #include <string>
 #include <iostream>
 #include <chrono>
@@ -15,7 +17,7 @@ std::string TITLE = R"(
     MMM         MMM      OOOOOO      NNN         NNN      OOOOOO      PPP               OOOOOO      LLLLLLLLLLLL         YYY
     )";
 
-void clear_screen(){
+void clear(){
     #ifdef _WIN32
         std::system("cls");
     #else
@@ -24,10 +26,16 @@ void clear_screen(){
 }
 
 Menu::Menu(){
-
+    board = Board("../Board/plansza1.txt");
 }
 
 void Menu::print_menu_screen(){
+    chest.add_cards(chest.load_cards_from_file("../Cards/deck.txt"));
+
+    chance.add_cards(chance.load_cards_from_file("../Cards/deck.txt"));
+
+    board.setNumberOfPlayers(players.size());
+
     std::string option;
     std::string options = R"(
                                                          press S to START Game
@@ -36,46 +44,44 @@ void Menu::print_menu_screen(){
                                                          press E to EXIT
     )";
     while (true){
-        clear_screen();
+        clear();
         std::cout << TITLE << std::endl;
         std::cout << options << std::endl;
         std::cin >> option;
         switch (option[0]){
             case 'S':
                 if ((dices.size() != 0) && (players.size() != 0)){
+                    hand = Hand();
                     hand.add_dices(dices);
                     for (auto& dice : hand.dice_collection){
                         std::cout << dice.sides << "; ";
                     }
-                    order.add_players(players);
+                    order = Order();
+                    order.add_players(players, hand, board, chance, chest);
                     order.print_order();
+
+                    chest.print_deck();
+
+                    chance.print_deck();
+
+                    board.printBoard();
+
                     std::this_thread::sleep_for(std::chrono::seconds(3));
+
                     //make turn? na koniec gry trzeba bedzie wyjsc albo wyczyscic hand i order bo sie 2 raz dodaja
+
+
+
                 } else {
                     std::cout << R"(
                                                 You need to add dices and players first!
                 )" << std::endl;
                 std::this_thread::sleep_for(std::chrono::seconds(3));
-                clear_screen();
+                clear();
                 }
                 break;
             case 's':
-                if ((dices.size() != 0) && (players.size() != 0)){
-                    hand.add_dices(dices);
-                    for (auto& dice : hand.dice_collection){
-                        std::cout << dice.sides << "; ";
-                    }
-                    order.add_players(players);
-                    order.print_order();
-                    std::this_thread::sleep_for(std::chrono::seconds(3));
-                    //make turn? na koniec gry trzeba bedzie wyjsc albo wyczyscic hand i order bo sie 2 raz dodaja
-                } else {
-                    std::cout << R"(
-                                                You need to add dices and players first!
-                )" << std::endl;
-                std::this_thread::sleep_for(std::chrono::seconds(3));
-                clear_screen();
-                }
+                //will copy ^
                 break;
             case 'P':
                 add_players();
@@ -94,7 +100,7 @@ void Menu::print_menu_screen(){
                                                               Exiting...
                 )" << std::endl;
                 std::this_thread::sleep_for(std::chrono::seconds(3));
-                clear_screen();
+                clear();
                 std::exit(0);
                 break;
             case 'e':
@@ -102,7 +108,7 @@ void Menu::print_menu_screen(){
                                                               Exiting...
                 )" << std::endl;
                 std::this_thread::sleep_for(std::chrono::seconds(3));
-                clear_screen();
+                clear();
                 std::exit(0);
                 break;
             default:
@@ -117,7 +123,7 @@ void Menu::print_menu_screen(){
 
 void Menu::add_players(){
     std::string input;
-    clear_screen();
+    clear();
     std::string options = R"(
                                                          press P to add PLAYERS
                                                          press B to add BOTS
@@ -154,14 +160,14 @@ void Menu::add_players(){
 
 void Menu::get_nicknames(bool bot){
     std::string input;
-    clear_screen();
+    clear();
     std::string options = R"(
                                             Enter nicknames for your players (up to 8) then press ENTER. When you finish press "."
     )";
     std::cout << TITLE << std::endl;
     std::cout << options << std::endl;
     std::cin >> input;
-    while (((input != ".") || (players.size() == 0)) && (players.size() != 8)){
+    while (((input != ".") || (players.size() == 0)) && (players.size() != 6)){
         if ((input == "") || (input == "") || (input == " ") || (input == "\t") || (check_if_used(input))){
             std::cout << R"(
                                             Invalid argument! Nickname has already been used.
@@ -175,7 +181,7 @@ void Menu::get_nicknames(bool bot){
                 players.push_back(Player(input));
             }
         }
-        clear_screen();
+        clear();
         std::cout << TITLE << std::endl;
         std::cout << options << std::endl;
         std::cin >> input;
@@ -194,7 +200,7 @@ bool Menu::check_if_used(std::string nickname){
 void Menu::add_dices(){
     bool correct;
     std::string input;
-    clear_screen();
+    clear();
     std::string options = R"(
                                             Enter number of sides for your dices then press ENTER. When you finish press "."
     )";
@@ -216,7 +222,7 @@ void Menu::add_dices(){
             )" << std::endl;
             std::this_thread::sleep_for(std::chrono::seconds(3));
         }
-        clear_screen();
+        clear();
         std::cout << TITLE << std::endl;
         std::cout << options << std::endl;
         std::cin >> input;
@@ -233,13 +239,17 @@ Order::Order(){
 
 }
 
-Order::Order(std::vector<Player> players){
-    players_order = players;
+Order::Order(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest){
+    for (auto& player : players){
+        players_order.push_back(PlayerDriver(player, hand));
+        //players_order.push_back(PlayerDriver(player, hand, board, chance, chest, players));
+    }
 }
 
-void Order::add_players(std::vector<Player> players){
+void Order::add_players(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest){
     for (auto& player : players){
-        players_order.push_back(player);
+        players_order.push_back(PlayerDriver(player, hand));
+        //players_order.push_back(PlayerDriver(player, hand, board, chance, chest, players));
     }
 }
 
@@ -247,15 +257,15 @@ void Order::shuffle(){
     std::shuffle(players_order.begin(), players_order.end(), std::default_random_engine{});
 }
 
-Player Order::whose_turn(){
+PlayerDriver Order::whose_turn(){
     std::rotate(players_order.begin(), players_order.begin() + 1, players_order.end());
     return players_order[players_order.size() - 1];
 }
 
 void Order::print_order(){
-    std::cout << "Turn: " << players_order[players_order.size() - 1].get_name() << std::endl;
+    std::cout << "Turn: " << players_order[players_order.size() - 1].player.get_name() << std::endl;
     std::cout << "Next:" << std::endl;
     for (int i = 0; i < players_order.size() - 1; ++i){
-        std::cout << i + 1 << ". " << players_order[i].get_name() << std::endl;
+        std::cout << i + 1 << ". " << players_order[i].player.get_name() << std::endl;
     }
 }
