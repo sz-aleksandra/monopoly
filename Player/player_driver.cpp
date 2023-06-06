@@ -12,7 +12,8 @@ PlayerDriver::PlayerDriver(Player &unit, Hand &roller, Board &board) : player(un
 void PlayerDriver::make_turn() {
     // @TODO think about better way to do that, maybe with try
     clear_screen();
-    std::cout << "------------------------------\n";
+    board.printBoard();
+    std::cout << "\n------------------------------\n";
     std::cout << player.get_name() << " move!\n";
     std::cout << "------------------------------\n\n\n";
 
@@ -151,7 +152,8 @@ void PlayerDriver::card_actions(std::string type) {
 }
 
 void PlayerDriver::go_jail_actions() {
-    //@TODO
+    std::cout << "You landed on Go To Jail field, you know what happens next...\n";
+    put_in_jail_actions();
 }
 
 void PlayerDriver::change_position_actions(std::string type, int value, bool skip_start) {
