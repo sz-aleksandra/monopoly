@@ -157,6 +157,7 @@ Board::Board(string filename, int players)
 	}
 }
 
+
 void Board::printFieldInformations(int field_number)
 {
 	Field* field = board_fields[field_number];
@@ -303,7 +304,59 @@ void Board::setNewCords(int x, int y, string value)
 
 void Board::removePlayer(int player)
 {
+	vector<int> player_location = players_locations[player - 1];
+	int x = player_location[0];
+	int y = player_location[1];
 
+	setNewCords(x, y, ". ");
+	players_locations.erase(players_locations.begin() + player - 1);
+	players.erase(player - 1, 1);
+
+	number_of_players--;
+}
+
+bool Board::doesPlayerHaveAllFields(int player, string color)
+{
+	int counter = 0;
+
+	for (Field* field : board_fields)
+	{
+		if (field->getType() == "property")
+		{
+			Property* new_field = dynamic_cast<Property*>(field);
+			
+			if (new_field->getColor() == color && new_field->getOwner() == player)
+			{
+				counter++;
+			}
+		}
+	}
+
+	if ((color == "blue" || color == "brown") && counter == 2) return true;
+	
+	else if (!(color == "blue" || color == "brown") && counter == 3) return true;
+
+	else return false;
+}
+
+int Board::howManyRailroads(int player)
+{
+	int counter = 0;
+
+	for (Field* field : board_fields)
+	{
+		if (field->getType() == "railroads")
+		{
+			RailRoads* new_field = dynamic_cast<RailRoads*>(field);
+			int owner = new_field->getOwner();
+
+			if (new_field->getOwner() == player)
+			{
+				counter++;
+			}
+		}
+	}
+	return counter;
 }
 
 Property::Property(string tp, string name, int price, string col, int own, int num_houses, int num_hotels)

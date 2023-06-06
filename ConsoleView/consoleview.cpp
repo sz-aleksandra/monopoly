@@ -1,6 +1,5 @@
-//
-// Created by jakub on 06.06.23.
-//
+// Project: Monopoly
+// Author: Jakub Bąba
 
 #include "consoleview.h"
 
