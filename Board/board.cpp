@@ -157,6 +157,7 @@ Board::Board(string filename, int players)
 	}
 }
 
+
 void Board::printFieldInformations(int field_number)
 {
 	Field* field = board_fields[field_number];

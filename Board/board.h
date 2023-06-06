@@ -126,7 +126,8 @@ protected:
 
 public:
 	Board();
-	Board(string filenamen, int number_of_players = 1);
+	Board(string filename, int number_of_players = 1);
+
 
 	void printFieldInformations(int field);
 	void movePlayer(int player, int new_field);

@@ -13,7 +13,6 @@ add_compile_definitions(DEBUG=true)
 include_directories(ConsoleView Menu Player Board Dices Cards tests/Google)
 
 add_subdirectory(Menu)
-add_subdirectory(ConsoleView)
 add_subdirectory(Player)
 add_subdirectory(Board)
 add_subdirectory(Dices)
@@ -22,3 +21,5 @@ add_subdirectory(tests/Google)
 
 file(GLOB MY_FILES "*.txt")
 file(COPY ${MY_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY Player/board.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Player)
+file(COPY Board/plansza1.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Board)
