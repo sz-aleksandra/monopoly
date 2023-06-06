@@ -8,28 +8,33 @@
 #include <vector>
 #include "player.h"
 #include "player_driver.h"
-#include "../Dices/dices.h"
+#include "dices.h"
+#include "board.h"
 
+
+using namespace std;
 int main() {
     if (DEBUG)
         std::cout << "DEBUG MODE\n\n";
     Player p1("Jakub");
     Player p2("Mark", "bot");
-    p2.add_money(50);
-    p1.player_description();
-    p2.player_description();
+
+    std::string map = "board.txt";
+    Board board(map);
+    BoardDisplay display(board);
+    display.printBoard(board);
 
     std::vector<Dice> my_dices;
     my_dices.emplace_back(6);
     my_dices.emplace_back(6);
     Hand h(my_dices);
-    PlayerDriver driver1(p1, h);
-    driver1.put_in_jail_actions();
-    p1.give_out_of_jail_card();
-    p1.give_out_of_jail_card();
-    p1.give_out_of_jail_card();
-    for (int i=0; i<10; i++)
+
+    PlayerDriver driver1(p1, h, board, display);
+    for (int i=0; i<5; i++) {
         driver1.make_turn();
+        std::cout << "\nEnd No. " << i << "\n";
+    }
+
 
     return 0;
 }

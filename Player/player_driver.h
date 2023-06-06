@@ -7,14 +7,18 @@
 #include <algorithm>
 #include "player.h"
 #include "dices.h"
+#include "consoleview.h"
+#include "board.h"
 
 class PlayerDriver {
 private:
     Player &player;
     Hand &hand;
+    Board board;
+    BoardDisplay display;
     int go_out_chances;
 public:
-    PlayerDriver(Player &unit, Hand &roller);
+    PlayerDriver(Player &unit, Hand &roller, Board &board, BoardDisplay &board_display);
     void make_turn();
     void move();
     void new_position_actions();

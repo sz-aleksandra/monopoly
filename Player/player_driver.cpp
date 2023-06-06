@@ -5,10 +5,9 @@
 #   define DEBUG false
 #endif
 #include "player_driver.h"
-#include "consoleview.h"
 
 // @TODO check if unit is player type
-PlayerDriver::PlayerDriver(Player &unit, Hand &roller) : player(unit), hand(roller), go_out_chances(0) {}
+PlayerDriver::PlayerDriver(Player &unit, Hand &roller, Board &board, BoardDisplay &board_display) : player(unit), hand(roller), board(board), display(board_display), go_out_chances(0) {}
 
 void PlayerDriver::make_turn() {
     // @TODO think about better way to do that, maybe with try
@@ -97,8 +96,12 @@ void PlayerDriver::move() {
 }
 
 void PlayerDriver::new_position_actions() {
+    // board.movePlayer(id, pos, display)
+    // display.printBoard(board)
     std::string type;
     // @TODO get field type from board (?) class and update types names
+    // board.get_type(index)
+    // board.get_field(index)
     type = "property";
     if (type == "property")
         property_actions();
