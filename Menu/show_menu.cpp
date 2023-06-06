@@ -5,7 +5,8 @@ int main(){ //instrukcja obslugi jak chce sie zeby pierwsza obecna osoba byla wy
     Menu menu;
     menu.print_menu_screen();
     //std::vector<Player> test = {Player("ola", "bot"), Player("kuba"), Player("kondrad")};
-    //Order order(test);
+    //Order order;
+    //order.add_players(test);
     //order.whose_turn();
     //order.print_order();
     //order.whose_turn();

@@ -43,7 +43,14 @@ void Menu::print_menu_screen(){
         switch (option[0]){
             case 'S':
                 if ((dices.size() != 0) && (players.size() != 0)){
-                    //make turn?
+                    hand.add_dices(dices);
+                    for (auto& dice : hand.dice_collection){
+                        std::cout << dice.sides << "; ";
+                    }
+                    order.add_players(players);
+                    order.print_order();
+                    std::this_thread::sleep_for(std::chrono::seconds(3));
+                    //make turn? na koniec gry trzeba bedzie wyjsc albo wyczyscic hand i order bo sie 2 raz dodaja
                 } else {
                     std::cout << R"(
                                                 You need to add dices and players first!
@@ -54,7 +61,14 @@ void Menu::print_menu_screen(){
                 break;
             case 's':
                 if ((dices.size() != 0) && (players.size() != 0)){
-                    //make turn?
+                    hand.add_dices(dices);
+                    for (auto& dice : hand.dice_collection){
+                        std::cout << dice.sides << "; ";
+                    }
+                    order.add_players(players);
+                    order.print_order();
+                    std::this_thread::sleep_for(std::chrono::seconds(3));
+                    //make turn? na koniec gry trzeba bedzie wyjsc albo wyczyscic hand i order bo sie 2 raz dodaja
                 } else {
                     std::cout << R"(
                                                 You need to add dices and players first!
@@ -142,12 +156,12 @@ void Menu::get_nicknames(bool bot){
     std::string input;
     clear_screen();
     std::string options = R"(
-                                            Enter nicknames for your players then press ENTER. When you finish press "."
+                                            Enter nicknames for your players (up to 8) then press ENTER. When you finish press "."
     )";
     std::cout << TITLE << std::endl;
     std::cout << options << std::endl;
     std::cin >> input;
-    while ((input != ".") || (players.size() == 0)){
+    while (((input != ".") || (players.size() == 0)) && (players.size() != 8)){
         if ((input == "") || (input == "") || (input == " ") || (input == "\t") || (check_if_used(input))){
             std::cout << R"(
                                             Invalid argument! Nickname has already been used.
@@ -215,8 +229,18 @@ void Menu::add_dices(){
     std::this_thread::sleep_for(std::chrono::seconds(3));
 }
 
+Order::Order(){
+
+}
+
 Order::Order(std::vector<Player> players){
     players_order = players;
+}
+
+void Order::add_players(std::vector<Player> players){
+    for (auto& player : players){
+        players_order.push_back(player);
+    }
 }
 
 void Order::shuffle(){

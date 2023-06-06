@@ -11,9 +11,19 @@ int Dice::roll(){
     return dis(gen);
 }
 
+Hand::Hand(){
+
+}
+
 Hand::Hand(std::vector<Dice> dices){
     dice_collection = dices;
     same_result_counter = 0;
+}
+
+void Hand::add_dices(std::vector<Dice> dices){
+    for (auto& dice : dices){
+        dice_collection.push_back(dice);
+    }
 }
 
 int Hand::roll_all(bool print){

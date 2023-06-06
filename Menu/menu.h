@@ -4,6 +4,17 @@
 
 #pragma once
 
+class Order{
+    public:
+    Order();
+    Order(std::vector<Player> players);
+    void add_players(std::vector<Player> players);
+    void shuffle();
+    Player whose_turn();
+    void print_order();
+    std::vector<Player> players_order;
+};
+
 class Menu{
     public:
     Menu();
@@ -17,13 +28,6 @@ class Menu{
     std::vector<std::string> nicknames;
     std::vector<Player> bots;
     std::vector<Dice> dices;
-};
-
-class Order{
-    public:
-    Order(std::vector<Player> players);
-    void shuffle();
-    Player whose_turn();
-    void print_order();
-    std::vector<Player> players_order;
+    Order order;
+    Hand hand;
 };
