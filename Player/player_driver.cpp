@@ -27,14 +27,25 @@ void PlayerDriver::make_turn() {
 }
 
 void PlayerDriver::move() {
-    std::cout << "Rolling dices...\n";
-    int roll_total = hand.roll_all(true);
-    // @TODO implement doubles
-    if (hand.same_result_counter >= 3) {
-
+    if (player.is_in_jail()) {
+        // @TODO implement what happens when in jail
     }
-
-    change_position_actions("move", roll_total);
+    else {  // just normal move
+        std::cout << "Rolling dices...\n";
+        int roll_total = hand.roll_all(true);
+        if (hand.same_result_counter >= 3) {
+            std::cout << "THREE DOUBLES: YOU GO TO JAIL\n";
+            hand.same_result_counter = 0;
+            go_jail_actions();
+        }
+        else if (hand.same_result_counter) {
+            std::cout << "DOUBLE, you will have next move after this one\n";
+            change_position_actions("move", roll_total);
+            move();
+        }
+        else
+            change_position_actions("move", roll_total);
+    }
 }
 
 void PlayerDriver::new_position_actions() {
