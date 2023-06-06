@@ -144,7 +144,8 @@ void PlayerDriver::railroads_actions() {
 
 void PlayerDriver::penalty_actions() {
     auto field = (Penalty*)board.get_field(player.get_position());
-    //@TODO
+    int to_pay = field->getTaxToPay();
+    std::cout << "You know what time is it? Time for tax! You pay " << to_pay << "$.\n";
 }
 
 void PlayerDriver::card_actions(std::string type) {
@@ -191,10 +192,12 @@ void PlayerDriver::take_money_actions(int amount) {
 void PlayerDriver::put_in_jail_actions() {
     player.put_in_jail();
     player.set_position(10);
+    board.movePlayer(player.get_id(), player.get_position());
     go_out_chances = 3;
 }
 
 void PlayerDriver::put_out_of_jail_actions() {
     player.put_out_of_jail();
     player.set_position(10);
+    board.movePlayer(player.get_id(), player.get_position());
 }
