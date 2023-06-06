@@ -1,8 +1,8 @@
-#pragma once
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include "../Menu/menu.h"
 
 using namespace std;
 
@@ -17,6 +17,7 @@ public:
 	virtual void printFieldInfo() = 0;
 
 	string getName();
+	string getType();
 };
 
 class Property : public Field
@@ -110,38 +111,26 @@ public:
 	void setOwner(int own);
 };
 
-class BoardDisplay;
-
 class Board
 {
 protected:
 	vector <Field*> board_fields;
 	vector<vector<int>> fields_coordinates;
 	vector <vector<int >> players_locations;
+	string board[22][22];
+	int number_of_players;
 
 	void setFieldCoordinates();
 
 public:
 	Board();
-	Board(string filename);
-	~Board();
+	Board(string filenamen, Menu menu);
 
 	void printFieldInformations(int field);
-	void movePlayer(int player, int new_field, BoardDisplay &board);
+	void movePlayer(int player, int new_field);
 	Field* get_field(int index);
 
-	vector<vector<int>> getPlayersLocations();
-	
-};
-	
-class BoardDisplay
-{
-private:
-	string board[22][22];
-	
-public:
-
-	BoardDisplay(Board& actual_board_state);
-	void printBoard(Board& board_state);
+	void createBoard();
+	void printBoard();
 	void setNewCords(int x, int y, string value);
 };
