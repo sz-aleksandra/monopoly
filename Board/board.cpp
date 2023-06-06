@@ -160,12 +160,10 @@ Board::~Board()
 	board_fields.clear();
 }
 
-void Board::printFields()
+void Board::printFieldInformations(int field_number)
 {
-	for (Field *field : board_fields)
-	{
-		field->printFieldInfo();
-	}
+	Field* field = board_fields[field_number];
+	field->printFieldInfo();
 }
 
 void Board::movePlayer(int player, int new_field, BoardDisplay &board)
@@ -173,10 +171,10 @@ void Board::movePlayer(int player, int new_field, BoardDisplay &board)
 	int new_x = 0;
 	int new_y = 0;
 
-	vector<int> new_position = fields_coordinates[new_field - 1];
+	vector<int> new_position = fields_coordinates[new_field];
 	vector<int> current_position = players_locations[player - 1];
 
-	if (new_field > 1 && new_field < 10)
+	if (new_field > 0 && new_field < 10)
 	{
 		new_x = new_position[0] + player - 1;
 		new_y = new_position[1];
@@ -194,13 +192,13 @@ void Board::movePlayer(int player, int new_field, BoardDisplay &board)
 		new_y = new_position[1];
 	}
 
-	else if (new_field > 30 && new_field <= 40)
+	else if (new_field > 30 && new_field <= 39)
 	{
 		new_x = new_position[0];
 		new_y = new_position[1] + player - 1;
 	}
 
-	else if (new_field == 1)
+	else if (new_field == 0)
 	{
 		new_x = new_position[0] + player - 1;
 		new_y = new_position[1] + player - 1;

@@ -120,7 +120,7 @@ public:
 	Board(string filename);
 	~Board();
 
-	void printFields();
+	void printFieldInformations(int field);
 	void movePlayer(int player, int new_field, BoardDisplay &board);
 	vector<Field*> get_board_fields();
 
