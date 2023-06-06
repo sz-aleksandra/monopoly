@@ -1,5 +1,5 @@
-#include "../Player/player.cpp"
-#include "../Dices/dices.cpp"
+#include "player.h"
+#include "dices.h"
 #include <vector>
 
 #pragma once

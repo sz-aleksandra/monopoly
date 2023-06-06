@@ -1,5 +1,4 @@
 #include "menu.h"
-#include "menu.cpp"
 
 int main(){ //instrukcja obslugi jak chce sie zeby pierwsza obecna osoba byla wypisana ze to jej tura to trzeba najpierw wywolac whose_turn bo to przenosi na koniec a obecna tura jest brana z konca
     Menu menu;

@@ -10,8 +10,9 @@ add_compile_definitions(DEBUG=true)
 # uncomment this line if you work in clion on linux (clearing window)
 # add_compile_definitions(dummy=true)
 
-include_directories(ConsoleView Player Board Dices Cards tests/Google)
+include_directories(ConsoleView Menu Player Board Dices Cards tests/Google)
 
+add_subdirectory(Menu)
 add_subdirectory(ConsoleView)
 add_subdirectory(Player)
 add_subdirectory(Board)
