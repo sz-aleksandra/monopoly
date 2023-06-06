@@ -122,7 +122,7 @@ public:
 
 	void printFieldInformations(int field);
 	void movePlayer(int player, int new_field, BoardDisplay &board);
-	vector<Field*> get_board_fields();
+	Field* get_field(int index);
 
 	vector<vector<int>> getPlayersLocations();
 	
@@ -131,7 +131,7 @@ public:
 class BoardDisplay
 {
 private:
-	string board[22][20];
+	string board[22][22];
 	
 public:
 

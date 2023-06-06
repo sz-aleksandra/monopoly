@@ -13,38 +13,38 @@ string Field::getName()
 
 void Board::setFieldCoordinates()
 {
-	fields_coordinates.push_back({ 17, 15 });
+	fields_coordinates.push_back({ 16, 14 });
 
-	for (int j = 13; j >= 6; j--)
+	for (int j = 13; j >= 5; j--)
 	{
-		int i = 17;
+		int i = 16;
 
 		fields_coordinates.push_back({ i,j });
 	}
 
-	fields_coordinates.push_back({ 17, 4 });
+	fields_coordinates.push_back({ 16, 4 });
 
-	for (int i = 15; i >= 6; i--)
+	for (int i = 15; i >= 7; i--)
 	{
 		int j = 4;
 
 		fields_coordinates.push_back({ i ,j });
 	}
 
-	fields_coordinates.push_back({ 4, 4 });
+	fields_coordinates.push_back({ 6, 4 });
 
-	for (int j = 6; j <= 13; j++)
+	for (int j = 5; j <= 13; j++)
 	{
-		int i = 4;
+		int i = 6;
 
 		fields_coordinates.push_back({ i ,j });
 	}
 
-	fields_coordinates.push_back({ 4, 15 });
+	fields_coordinates.push_back({ 6, 14 });
 
-	for (int i = 6; i <= 15; i++)
+	for (int i = 7; i <= 15; i++)
 	{
-		int j = 15;
+		int j = 14;
 
 		fields_coordinates.push_back({ i ,j });
 	}
@@ -145,8 +145,8 @@ Board::Board(string filename)
 	//ustawienie pozycji 4 graczy
 	for (int i = 0; i < 4; i++)
 	{
-		int x = fields_coordinates[0][0] + i;
-		int y = fields_coordinates[0][1] + i;
+		int x = fields_coordinates[0][0] + 1 + i;
+		int y = fields_coordinates[0][1] + 1 + i;
 		players_locations.push_back({ x,y });
 	}
 }
@@ -176,59 +176,59 @@ void Board::movePlayer(int player, int new_field, BoardDisplay &board)
 
 	if (new_field > 0 && new_field < 10)
 	{
-		new_x = new_position[0] + player - 1;
+		new_x = new_position[0] + player;
 		new_y = new_position[1];
 	}
 
-	else if (new_field > 10 && new_field < 21)
+	else if (new_field > 10 && new_field < 20)
 	{
 		new_x = new_position[0];
-		new_y = new_position[1] - player + 1;
+		new_y = new_position[1] - player;
 	}
 
-	else if (new_field > 21 && new_field < 30)
+	else if (new_field > 20 && new_field < 30)
 	{
-		new_x = new_position[0] - player + 1;
+		new_x = new_position[0] - player;
 		new_y = new_position[1];
 	}
 
 	else if (new_field > 30 && new_field <= 39)
 	{
 		new_x = new_position[0];
-		new_y = new_position[1] + player - 1;
+		new_y = new_position[1] + player;
 	}
 
 	else if (new_field == 0)
 	{
-		new_x = new_position[0] + player - 1;
-		new_y = new_position[1] + player - 1;
+		new_x = new_position[0] + player;
+		new_y = new_position[1] + player;
 	}
 
 	else if (new_field == 10)
 	{
-		new_x = new_position[0] + player - 1;
-		new_y = new_position[1] - player + 1;
+		new_x = new_position[0] + player;
+		new_y = new_position[1] - player;
 	}
 
-	else if (new_field == 21)
+	else if (new_field == 20)
 	{
-		new_x = new_position[0] - player + 1;
-		new_y = new_position[1] - player + 1;
+		new_x = new_position[0] - player;
+		new_y = new_position[1] - player;
 	}
 
 	else if (new_field == 30)
 	{
-		new_x = new_position[0] - player + 1;
-		new_y = new_position[1] + player -1 ;
+		new_x = new_position[0] - player;
+		new_y = new_position[1] + player;
 	}
 
 	board.setNewCords(current_position[0], current_position[1], ". ");
 	players_locations[player - 1] = { new_x, new_y };
 }
 
-vector<Field*> Board::get_board_fields()
+Field* Board::get_field(int index)
 {
-	return board_fields;
+	return board_fields[index];
 }
 
 vector<vector<int>> Board::getPlayersLocations()
@@ -243,30 +243,30 @@ BoardDisplay::BoardDisplay(Board& actual_board_state)
 	{
 		for (int j = 0; j < 20; j++)
 		{
-			if (i == 5 && j >= 5 && j < 15)
-			{	
-				int number = j + 16;
+			if (i == 6 && j >= 5 && j < 15)
+			{
+				int number = j + 17;
 				board[i][j] = to_string(number);
 			}
 
-			else if (i == 16  && j>=5 && j < 15)
+			else if (i == 16 && j >= 4 && j < 15)
 			{
 				int number = 15 - j;
 
-				if (number != 10)
+				if (number < 10)
 					board[i][j] = "0" + to_string(number);
 				else
 					board[i][j] = to_string(number);
 			}
 
-			else if (j == 5 && i >= 5 && i <= 15)
+			else if (j == 4 && i > 5 && i <= 15)
 			{
-				int number = 26 - i;
+				int number = 27 - i;
 				board[i][j] = to_string(number);
 			}
 
 
-			else if (j == 14 && i >= 5 && i <= 15)
+			else if (j == 14 && i > 5 && i <= 15)
 			{
 				int number = 25 + i;
 				board[i][j] = to_string(number);
@@ -278,6 +278,8 @@ BoardDisplay::BoardDisplay(Board& actual_board_state)
 			}
 		}
 	}
+
+
 }
 
 void BoardDisplay::printBoard(Board& board_state)
