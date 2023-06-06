@@ -15,10 +15,9 @@ private:
     Player &player;
     Hand &hand;
     Board board;
-    BoardDisplay display;
     int go_out_chances;
 public:
-    PlayerDriver(Player &unit, Hand &roller, Board &board, BoardDisplay &board_display);
+    PlayerDriver(Player &unit, Hand &roller, Board &board);
     void make_turn();
     void move();
     void new_position_actions();

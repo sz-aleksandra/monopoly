@@ -21,15 +21,13 @@ int main() {
 
     std::string map = "board.txt";
     Board board(map);
-    BoardDisplay display(board);
-    display.printBoard(board);
 
     std::vector<Dice> my_dices;
     my_dices.emplace_back(6);
     my_dices.emplace_back(6);
     Hand h(my_dices);
 
-    PlayerDriver driver1(p1, h, board, display);
+    PlayerDriver driver1(p1, h, board);
     for (int i=0; i<5; i++) {
         driver1.make_turn();
         std::cout << "\nEnd No. " << i << "\n";

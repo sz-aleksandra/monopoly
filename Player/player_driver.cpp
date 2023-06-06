@@ -7,7 +7,7 @@
 #include "player_driver.h"
 
 // @TODO check if unit is player type
-PlayerDriver::PlayerDriver(Player &unit, Hand &roller, Board &board, BoardDisplay &board_display) : player(unit), hand(roller), board(board), display(board_display), go_out_chances(0) {}
+PlayerDriver::PlayerDriver(Player &unit, Hand &roller, Board &board) : player(unit), hand(roller), board(board), go_out_chances(0) {}
 
 void PlayerDriver::make_turn() {
     // @TODO think about better way to do that, maybe with try
@@ -96,13 +96,11 @@ void PlayerDriver::move() {
 }
 
 void PlayerDriver::new_position_actions() {
-    // board.movePlayer(id, pos, display)
-    // display.printBoard(board)
-    std::string type;
+    board.movePlayer(player.get_id(), player.get_position());
+    board.printBoard();
     // @TODO get field type from board (?) class and update types names
-    // board.get_type(index)
-    // board.get_field(index)
-    type = "property";
+    Field* field = board.get_field(player.get_position());
+    std::string type = field->getType();
     if (type == "property")
         property_actions();
     else if (type == "utility")
