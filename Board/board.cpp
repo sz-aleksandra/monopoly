@@ -58,7 +58,8 @@ Board::Board()
 	:board_fields({}), fields_coordinates({}), players_locations({})
 {}
 
-Board::Board(string filename, Menu menu)
+Board::Board(string filename, int players)
+	:number_of_players(players)
 {
 	ifstream file(filename);
 
@@ -147,11 +148,8 @@ Board::Board(string filename, Menu menu)
 	createBoard();
 	setFieldCoordinates();
 
-	vector<Player> players = menu.players;
-	number_of_players = players.size();
-
 	//ustawienie pozycji N graczy
-	for (int i = 0; i < number_of_players; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		int x = fields_coordinates[0][0] + 1 + i;
 		int y = fields_coordinates[0][1] + 1 + i;
@@ -231,6 +229,11 @@ Field* Board::get_field(int index)
 	return board_fields[index];
 }
 
+void Board::setNumberOfPlayers(int players)
+{
+	number_of_players = players;
+}
+
 void Board::createBoard()
 {
 	for (int i = 0; i < 22; i++)
@@ -278,7 +281,6 @@ void Board::printBoard()
 {
 	for (int i = 0; i < number_of_players; i++)
 	{
-		string players = "ABCDEF";
 		vector<int> current_position = players_locations[i];
 
 		board[current_position[0]][current_position[1]] = string(1, players[i]) + " ";
@@ -298,6 +300,11 @@ void Board::printBoard()
 void Board::setNewCords(int x, int y, string value)
 {
 	board[x][y] = value;
+}
+
+void Board::removePlayer(int player)
+{
+
 }
 
 Property::Property(string tp, string name, int price, string col, int own, int num_houses, int num_hotels)

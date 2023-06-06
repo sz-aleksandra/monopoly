@@ -118,19 +118,25 @@ protected:
 	vector<vector<int>> fields_coordinates;
 	vector <vector<int >> players_locations;
 	string board[22][22];
+	string players = "ABCDEF";
 	int number_of_players;
 
 	void setFieldCoordinates();
 
 public:
 	Board();
-	Board(string filename, Menu menu);
+	Board(string filename, int number_of_players = 1);
+
 
 	void printFieldInformations(int field);
 	void movePlayer(int player, int new_field);
 	Field* get_field(int index);
 
+	void setNumberOfPlayers(int players);
+
 	void createBoard();
 	void printBoard();
 	void setNewCords(int x, int y, string value);
+
+	void removePlayer(int player);
 };
