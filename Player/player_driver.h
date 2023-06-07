@@ -5,11 +5,11 @@
 #include <iostream>
 #include <cctype>
 #include <algorithm>
-#include "../Player/player.cpp"
-#include "../Dices/dices.cpp"
-#include "../ConsoleView/consoleview.cpp"
-#include "../Board/board.cpp"
-#include "../Cards/cards.cpp"
+#include "player.h"
+#include "dices.h"
+#include "consoleview.h"
+#include "board.h"
+#include "cards.h"
 
 class PlayerDriver {
 private:
@@ -23,6 +23,7 @@ private:
     friend class Order;
 public:
     PlayerDriver(Player* unit, Hand* roller, Board* board, Deck<Card>* chances, Deck<Card>* chests, vector<Player>* players);
+
     void make_turn();
     void move();
     void new_position_actions();
@@ -43,5 +44,5 @@ public:
 
     void buy_house();
     void buy_property(int index, int price);
-    void pay_to_other(PlayerDriver &receiver, int amount);
+    void pay_to_other(Player &receiver, int amount);
 };

@@ -54,6 +54,7 @@ void Menu::print_menu_screen(){
         switch (option[0]){
             case 'S':
                 if ((dices.size() != 0) && (players.size() != 0)){
+                    board.setNumberOfPlayers(players.size());
                     hand = Hand();
                     hand.add_dices(dices);
                     for (auto& dice : hand.dice_collection){
@@ -84,6 +85,7 @@ void Menu::print_menu_screen(){
                 break;
             case 's':
                 if ((dices.size() != 0) && (players.size() != 0)){
+                    board.setNumberOfPlayers(players.size());
                     hand = Hand();
                     hand.add_dices(dices);
                     for (auto& dice : hand.dice_collection){

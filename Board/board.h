@@ -2,7 +2,6 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-#include "../Menu/menu.h"
 
 using namespace std;
 
@@ -137,7 +136,7 @@ protected:
 
 public:
 	Board();
-	Board(string filenamen, int number_of_players = 1);
+	Board(string filename, int number_of_players = 1);
 
 	void printFieldInformations(int field);
 	void movePlayer(int player, int new_field);

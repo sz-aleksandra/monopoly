@@ -3,4 +3,4 @@ project(menu)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(menu show_menu.cpp menu.h menu.cpp ../Player/player.cpp ../Player/player.h ../Dices/dices.cpp ../Dices/dices.h)
+add_executable(menu show_menu.cpp menu.h menu.cpp ../Player/player.cpp ../Player/player.h ../Player/player_driver.cpp ../Player/player_driver.h ../Cards/cards.cpp ../Cards/cards.h ../Board/board.cpp ../Board/board.h ../Dices/dices.cpp ../Dices/dices.h ../ConsoleView/consoleview.cpp ../ConsoleView/consoleview.h)

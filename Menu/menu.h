@@ -1,9 +1,7 @@
 #pragma once
 //#include "../Player/player.cpp"
 //#include "../Dices/dices.cpp"
-#include "../Board/board.cpp"
-#include "../Cards/cards.cpp"
-#include "../Player/player_driver.cpp"
+#include "player_driver.h"
 #include <vector>
 
 class Order{
