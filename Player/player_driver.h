@@ -13,7 +13,6 @@
 
 class PlayerDriver {
 private:
-    Player &player;
     Hand &hand;
     Board &board;
     Deck<Card> &deck_chance;
@@ -21,6 +20,7 @@ private:
     vector<Player> *all_players;
     int go_out_chances;
 public:
+    Player &player;
     PlayerDriver(Player &unit, Hand &roller, Board &board, Deck<Card> &chances, Deck<Card> &chests, vector<Player> *players);
     void make_turn();
     void move();
