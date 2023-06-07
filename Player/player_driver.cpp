@@ -228,7 +228,11 @@ void PlayerDriver::penalty_actions() {
 }
 
 void PlayerDriver::card_actions(std::string type) {
-    //@TODO
+    if (type == "chance"){
+        deck_chance->draw_card()->effect(player->get_name());
+    } else {
+        deck_chest->draw_card()->effect(player->get_name());
+    }
 }
 
 void PlayerDriver::go_jail_actions() {
