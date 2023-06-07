@@ -58,15 +58,16 @@ void Menu::print_menu_screen(){
                     }
                     order = Order();
                     order.add_players(players, hand, board, chance, chest);
-
-                    //order.print_order();
+                    order.print_order();
 
                     //chest.print_deck();
 
                     //chance.print_deck();
 
                     //board.printBoard();
-                    for (int i = 0; i < 3; ++i){
+
+                    for (int i = 0; i < 5; ++i){
+                    //    order.players_order[0].make_turn();
                         order.whose_turn().make_turn();
                     }
 
@@ -240,36 +241,34 @@ void Menu::add_dices(){
 }
 
 Order::Order(){
-    turn = 0;
+
 }
 
-Order::Order(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest){
+Order::Order(std::vector<Player> &players, Hand &hand, Board &board, Deck<Card> &chance, Deck<Card> &chest){
     for (auto& player : players){
-        players_order.push_back(PlayerDriver(player, hand, board, chance, chest, players));
-    }
-    turn = 0;
-}
-
-void Order::add_players(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest){
-    for (auto& player : players){
-        players_order.push_back(PlayerDriver(player, hand, board, chance, chest, players));
+        players_order.push_back(PlayerDriver(&player, &hand, &board, &chance, &chest, &players));
     }
 }
 
-//void Order::shuffle(){
-//    std::shuffle(players_order.begin(), players_order.end(), std::default_random_engine{});
-//}
+void Order::add_players(std::vector<Player> &players, Hand &hand, Board &board, Deck<Card> &chance, Deck<Card> &chest){
+    for (auto& player : players){
+        players_order.push_back(PlayerDriver(&player, &hand, &board, &chance, &chest, &players));
+    }
+}
+
+void Order::shuffle(){
+    std::shuffle(players_order.begin(), players_order.end(), std::default_random_engine{});
+}
 
 PlayerDriver Order::whose_turn(){
-    PlayerDriver now = players_order[turn % players_order.size()];
-    turn += 1;
-    return now;
+    std::rotate(players_order.begin(), players_order.begin() + 1, players_order.end());
+    return players_order[players_order.size() - 1];
 }
 
 void Order::print_order(){
-    std::cout << "Turn: " << players_order[players_order.size() - 1].player.get_name() << std::endl;
+    std::cout << "Turn: " << players_order[players_order.size() - 1].player->get_name() << std::endl;
     std::cout << "Next:" << std::endl;
     for (int i = 0; i < players_order.size() - 1; ++i){
-        std::cout << i + 1 << ". " << players_order[i].player.get_name() << std::endl;
+        std::cout << i + 1 << ". " << players_order[i].player->get_name() << std::endl;
     }
 }
