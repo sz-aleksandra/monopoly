@@ -66,7 +66,7 @@ void Menu::print_menu_screen(){
 
                     board.printBoard();
 
-                    std::this_thread::sleep_for(std::chrono::seconds(3));
+                    std::this_thread::sleep_for(std::chrono::seconds(10));
 
                     //make turn? na koniec gry trzeba bedzie wyjsc albo wyczyscic hand i order bo sie 2 raz dodaja
 
