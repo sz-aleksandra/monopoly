@@ -58,15 +58,19 @@ void Menu::print_menu_screen(){
                     }
                     order = Order();
                     order.add_players(players, hand, board, chance, chest);
-                    order.print_order();
 
-                    chest.print_deck();
+                    //order.print_order();
 
-                    chance.print_deck();
+                    //chest.print_deck();
 
-                    board.printBoard();
+                    //chance.print_deck();
 
-                    std::this_thread::sleep_for(std::chrono::seconds(10));
+                    //board.printBoard();
+                    for (int i = 0; i < 3; ++i){
+                        order.whose_turn().make_turn();
+                    }
+
+                    std::this_thread::sleep_for(std::chrono::seconds(3));
 
                     //make turn? na koniec gry trzeba bedzie wyjsc albo wyczyscic hand i order bo sie 2 raz dodaja
 
@@ -236,13 +240,14 @@ void Menu::add_dices(){
 }
 
 Order::Order(){
-
+    turn = 0;
 }
 
 Order::Order(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest){
     for (auto& player : players){
         players_order.push_back(PlayerDriver(player, hand, board, chance, chest, players));
     }
+    turn = 0;
 }
 
 void Order::add_players(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest){
@@ -251,13 +256,14 @@ void Order::add_players(std::vector<Player> players, Hand hand, Board board, Dec
     }
 }
 
-void Order::shuffle(){
-    std::shuffle(players_order.begin(), players_order.end(), std::default_random_engine{});
-}
+//void Order::shuffle(){
+//    std::shuffle(players_order.begin(), players_order.end(), std::default_random_engine{});
+//}
 
 PlayerDriver Order::whose_turn(){
-    std::rotate(players_order.begin(), players_order.begin() + 1, players_order.end());
-    return players_order[players_order.size() - 1];
+    PlayerDriver now = players_order[turn % players_order.size()];
+    turn += 1;
+    return now;
 }
 
 void Order::print_order(){

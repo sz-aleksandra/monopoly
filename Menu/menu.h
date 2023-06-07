@@ -11,11 +11,12 @@ class Order{
     Order();
     Order(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest);
     void add_players(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest);
-    void shuffle();
+    //void shuffle();
     PlayerDriver whose_turn();
     void print_order();
     std::vector<PlayerDriver> players_order;
     std::vector<Player> players_list;
+    int turn;
 };
 
 class Menu{
