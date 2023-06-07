@@ -1,5 +1,4 @@
 #pragma once
-
 //#include "../Player/player.cpp"
 //#include "../Dices/dices.cpp"
 #include "../Board/board.cpp"
@@ -10,8 +9,8 @@
 class Order{
     public:
     Order();
-    Order(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest);
-    void add_players(std::vector<Player> players, Hand hand, Board board, Deck<Card> chance, Deck<Card> chest);
+    Order(std::vector<Player>& players, Hand &hand, Board& board, Deck<Card>& chance, Deck<Card>& chest);
+    void add_players(std::vector<Player>& players, Hand &hand, Board& board, Deck<Card>& chance, Deck<Card>& chest);
     void shuffle();
     PlayerDriver whose_turn();
     void print_order();
@@ -27,7 +26,9 @@ class Menu{
     void get_nicknames(bool bot);
     bool check_if_used(std::string nickname);
     void add_dices();
-    void start_game();
+    void get_max_turns();
+    int how_many_players_left();
+    std::vector<Player> get_winner();
     std::vector<Player> players;
     std::vector<std::string> nicknames;
     std::vector<Dice> dices;
@@ -36,4 +37,6 @@ class Menu{
     Deck<Card> chest; //chest
     Deck<Card> chance;
     Board board;
+    int turn;
+    int max_turn;
 };

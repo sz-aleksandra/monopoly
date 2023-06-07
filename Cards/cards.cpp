@@ -1,3 +1,4 @@
+#pragma once
 #include "cards.h"
 
 Card::Card(std::string text, int number){
