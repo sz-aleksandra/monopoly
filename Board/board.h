@@ -67,7 +67,7 @@ public:
 
 	void setOwner(int own);
 	
-	int getRentMultiplier(Board board);
+	int getRentMultiplier(Board *board);
 };
 
 class Penalty : public Field
@@ -117,7 +117,7 @@ public:
 	int getPurchasePrice();
 	int getOwner();
 
-	int getRent(int player, Board field);
+	int getRent(int player, Board *field);
 	void setOwner(int own);
 };
 

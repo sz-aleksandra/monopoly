@@ -447,11 +447,11 @@ void Utility::setOwner(int own)
 	owner = own;
 }
 
-int Utility::getRentMultiplier(Board board)
+int Utility::getRentMultiplier(Board *board)
 {
 	int multiplier = 1;
 
-	if (board.doesOnePlayerHaveAllUtilities()) return 10;
+	if (board->doesOnePlayerHaveAllUtilities()) return 10;
 
 	else return 4;
 }
@@ -516,9 +516,9 @@ int RailRoads::getOwner()
 	return owner;
 }
 
-int RailRoads::getRent(int player, Board board)
+int RailRoads::getRent(int player, Board *board)
 {
-	int multiplier = board.howManyRailroads(player);
+	int multiplier = board->howManyRailroads(player);
 	int rent = basic_rent * multiplier;
 
 	return rent;
