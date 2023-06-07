@@ -178,9 +178,8 @@ void PlayerDriver::utility_actions() {
         std::cout << name << " is your utility. Now you're chilling while seeing your workers.\n";
     }
     else {
-//        int multiplier = field->getRentMultiplier(board);
         Player &receiver = all_players->at(owner-1);
-        int multiplier = 0; // @TODO finish when implemented
+        int multiplier = field->getRentMultiplier(board);
         std::cout << "Unfortunately, " << receiver.get_name() << " was here before you. Now roll will decide about your fate. Rolling dices...\n\n";
         int pay_base = hand->roll_all();
         std::cout << "Multiplier is " << multiplier << ", and roll result is " << pay_base << ". So you are paying " << multiplier*pay_base << "$.\n";
@@ -212,8 +211,7 @@ void PlayerDriver::railroads_actions() {
     }
     else {
         Player &receiver = all_players->at(owner-1);
-        int rent = 0;
-        // int rent = field->getRent(owner, board);
+        int rent = field->getRent(owner, board);
         std::cout << "Unfortunately, " << receiver.get_name() << " was here before you. Now you gotta pay " << rent << " $.\n";
         pay_to_other(receiver, rent);
         std::cout << "Now you have " << player->get_money() << "$.\n";
