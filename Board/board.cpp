@@ -89,8 +89,9 @@ Board::Board(string filename, int players)
 			string name = values[1];
 			int price = stoi(values[2]);
 			string color = values[3];
+			int basic_rent = stoi(values[4]);
 
-			Field* temp_field = new Property(type, name, price, color);
+			Field* temp_field = new Property(type, name, price, color, basic_rent);
 			board_fields.push_back(temp_field);
 		}
 		else if (values[0] == "special")
@@ -131,8 +132,9 @@ Board::Board(string filename, int players)
 			string type = values[0];
 			string name = values[1];
 			int purchase_price = stoi(values[2]);
+			int baisc_rent = stoi(values[3]);
 
-			Field* temp_field = new RailRoads(type, name, purchase_price);
+			Field* temp_field = new RailRoads(type, name, purchase_price, baisc_rent);
 			board_fields.push_back(temp_field);
 		}
 		else if (values[0] == "utility")
